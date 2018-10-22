@@ -15,11 +15,14 @@ class App extends Component {
             </div>
             <div className="Brown">
               Brown
-              <div className="pink">
+              <div className="Pink">
+                pink
               </div>
-              <div className="pink">
+              <div className="Pink">
+                pink
               </div>
-              <div className="pink">
+              <div className="Pink">
+                pink
               </div>
             </div>
           </div>

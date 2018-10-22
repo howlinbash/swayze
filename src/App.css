@@ -47,5 +47,14 @@
   background-color: brown;
   padding: 10px;
   margin: 10px;
+
+  display: flex;
+  flex-direction: row;
 }
 
+.Pink {
+  background-color: pink;
+  padding: 10px;
+  margin: 10px;
+  height: 100%;
+}
