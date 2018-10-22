@@ -14,7 +14,6 @@ class App extends Component {
               Green
             </div>
             <div className="actionCards">
-              Brown
               <div className="actionCard">
                 pink
               </div>
