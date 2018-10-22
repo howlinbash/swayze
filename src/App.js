@@ -6,22 +6,22 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="Box">
-          <div className="Blue">
+        <div className="aimHome">
+          <div className="aimBody">
           </div>
-          <div className="Red">
-            <div className="Green">
+          <div className="commandBox">
+            <div className="acHeading">
               Green
             </div>
-            <div className="Brown">
+            <div className="actionCards">
               Brown
-              <div className="Pink">
+              <div className="actionCard">
                 pink
               </div>
-              <div className="Pink">
+              <div className="actionCard">
                 pink
               </div>
-              <div className="Pink">
+              <div className="actionCard">
                 pink
               </div>
             </div>

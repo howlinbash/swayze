@@ -8,7 +8,7 @@
   /* flex-flow: row wrap; */
 }
 
-.Box {
+.aimHome {
   background-color: grey;
   height: 900px;
   width: 1200px;
@@ -17,7 +17,7 @@
   justify-content: space-between;
 }
 
-.Blue {
+.aimBody {
   background-color: blue;
   padding: 10px;
   margin: 10px;
@@ -25,7 +25,7 @@
   height: 100%;
 }
 
-.Red {
+.commandBox {
   background-color: red;
   padding: 10px;
   margin: 10px;
@@ -37,13 +37,13 @@
   /* justify-content: center; */
 }
 
-.Green {
+.acHeading {
   background-color: green;
   padding: 10px;
   margin: 10px;
 }
 
-.Brown {
+.actionCards {
   background-color: brown;
   padding: 10px;
   margin: 10px;
@@ -52,7 +52,7 @@
   flex-direction: row;
 }
 
-.Pink {
+.actionCard {
   background-color: pink;
   padding: 10px;
   margin: 10px;
