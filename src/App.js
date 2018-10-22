@@ -15,13 +15,10 @@ class App extends Component {
             </div>
             <div className="actionCards">
               <div className="actionCard">
-                pink
               </div>
               <div className="actionCard">
-                pink
               </div>
               <div className="actionCard">
-                pink
               </div>
             </div>
           </div>
