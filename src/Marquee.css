@@ -16,6 +16,11 @@
   background-color: lightblue;
 }
 
+.marquee:active {
+  border: 2px solid darkgrey;
+  background-color: brown;
+}
+
 .marqueeText {
   color: gold;
   text-shadow: -10px 0 black, 0 10px black, 10px 0 black, 0 -10px black;
