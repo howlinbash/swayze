@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import paddy from './Patrick_Swayze.gif';
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
               <div className="actionCard">
               </div>
               <div className="actionCard">
+                <img src={paddy} />
               </div>
             </div>
           </div>
