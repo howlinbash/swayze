@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import paddy from './pat.gif';
+import pat from './faces/pat.png';
+import will from './faces/will.png';
+import hilary from './faces/hilary.png';
 
 class App extends Component {
   render() {
@@ -20,12 +21,14 @@ class App extends Component {
               </div>
             </div>
             <div className="wheel">
-              <div className="window">
+              <div className="window a">
+                <img src={hilary} />
               </div>
-              <div className="window">
+              <div className="window b">
+                <img src={will} />
               </div>
-              <div className="window">
-                <img src={paddy} />
+              <div className="window c">
+                <img src={pat} />
               </div>
             </div>
           </div>
