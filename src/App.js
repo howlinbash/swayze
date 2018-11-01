@@ -6,19 +6,19 @@ import paddy from './pat.gif';
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="aimHome">
-          <div className="aimBody">
+      <div className="app">
+        <div className="machine">
+          <div className="marquee">
           </div>
-          <div className="commandBox">
-            <div className="acHeading">
+          <div className="console">
+            <div className="pointsBoard">
             </div>
-            <div className="actionCards">
-              <div className="actionCard">
+            <div className="wheel">
+              <div className="window">
               </div>
-              <div className="actionCard">
+              <div className="window">
               </div>
-              <div className="actionCard">
+              <div className="window">
                 <img src={paddy} />
               </div>
             </div>

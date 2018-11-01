@@ -1,4 +1,4 @@
-.App {
+.app {
   align-items: center;
   background-color: #282c34;
   display: flex;
@@ -7,7 +7,7 @@
   min-height: 100vh;
 }
 
-.aimHome {
+.machine {
   background-color: green;
   border-radius: 20px;
   display: flex;
@@ -18,7 +18,7 @@
   padding: 10px;
 }
 
-.aimBody {
+.marquee {
   background-color: brown;
   border-radius: 20px;
   height: 60%;
@@ -26,7 +26,7 @@
   padding: 10px;
 }
 
-.commandBox {
+.console {
   background-color: purple;
   border-radius: 20px;
   height: 100%;
@@ -37,7 +37,7 @@
   flex-direction: column;
 }
 
-.acHeading {
+.pointsBoard {
   background-color: gold;
   border-radius: 20px;
   height: 100px;
@@ -45,7 +45,7 @@
   padding: 10px;
 }
 
-.actionCards {
+.wheel {
   background-color: brown;
   border-radius: 20px;
   height: 100%;
@@ -56,7 +56,7 @@
   flex-direction: row;
 }
 
-.actionCard {
+.window {
   background-color: pink;
   border-radius: 20px;
   margin: 10px;
@@ -66,7 +66,7 @@
   flex-direction: column;
 }
 
-.actionCard img {
+.window img {
   /* align-items: center; */
   align-self: center;
   height: 100%;
