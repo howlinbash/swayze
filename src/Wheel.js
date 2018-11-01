@@ -1,17 +1,17 @@
 import React from 'react';
-import { hilary, pat, will } from './faces';
+import { pat, question } from './faces';
 import './Wheel.css';
 
-const Wheel = () => (
+const Wheel = ({ isSpinning }) => (
   <div className="wheel">
     <div className="window a">
-      <img src={hilary} />
+      <img src={isSpinning ? pat : question} />
     </div>
     <div className="window b">
-      <img src={will} />
+      <img src={isSpinning ? pat : question} />
     </div>
     <div className="window c">
-      <img src={pat} />
+      <img src={isSpinning ? pat : question} />
     </div>
   </div>
 );
