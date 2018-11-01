@@ -1,0 +1,24 @@
+.marquee {
+  border: 2px solid darkgrey;
+  background-color: brown;
+  border-radius: 20px;
+  height: 60%;
+  margin: 10px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.marquee:hover {
+  border: 2px solid black;
+  background-color: lightblue;
+}
+
+.marqueeText {
+  color: gold;
+  text-shadow: -10px 0 black, 0 10px black, 10px 0 black, 0 -10px black;
+  font-size: 180px;
+  font-family: impact;
+}
