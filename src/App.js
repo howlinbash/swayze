@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import Wheel from './Wheel';
 import './App.css';
-import { hilary, pat, will } from './faces';
 
 class App extends Component {
   render() {
@@ -18,17 +18,7 @@ class App extends Component {
                 20 POINTS
               </div>
             </div>
-            <div className="wheel">
-              <div className="window a">
-                <img src={hilary} />
-              </div>
-              <div className="window b">
-                <img src={will} />
-              </div>
-              <div className="window c">
-                <img src={pat} />
-              </div>
-            </div>
+            <Wheel />
           </div>
         </div>
       </div>
