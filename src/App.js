@@ -9,9 +9,15 @@ class App extends Component {
       <div className="app">
         <div className="machine">
           <div className="marquee">
+            <div className="marqueeText">
+              SPLAT-A-PAT
+            </div>
           </div>
           <div className="console">
             <div className="pointsBoard">
+              <div className="points">
+                20 POINTS
+              </div>
             </div>
             <div className="wheel">
               <div className="window">

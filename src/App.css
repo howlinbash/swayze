@@ -19,14 +19,27 @@
 }
 
 .marquee {
+  border: 2px solid darkgrey;
   background-color: brown;
   border-radius: 20px;
   height: 60%;
   margin: 10px;
-  padding: 10px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.marqueeText {
+  color: gold;
+  text-shadow: -10px 0 black, 0 10px black, 10px 0 black, 0 -10px black;
+  font-size: 180px;
+  font-family: impact;
 }
 
 .console {
+  border: 2px solid darkgrey;
   background-color: purple;
   border-radius: 20px;
   height: 100%;
@@ -38,14 +51,25 @@
 }
 
 .pointsBoard {
-  background-color: gold;
+  border: 2px solid black;
+  background-color: lightblue;
   border-radius: 20px;
   height: 100px;
   margin: 10px;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.points {
+  font-size: 50px;
+  font-family: impact;
 }
 
 .wheel {
+  border: 2px solid gold;
   background-color: brown;
   border-radius: 20px;
   height: 100%;
@@ -57,6 +81,7 @@
 }
 
 .window {
+  border: 2px solid black;
   background-color: pink;
   border-radius: 20px;
   margin: 10px;
@@ -67,8 +92,6 @@
 }
 
 .window img {
-  /* align-items: center; */
   align-self: center;
   height: 100%;
-  /* width: 100%; */
 }
