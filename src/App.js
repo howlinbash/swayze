@@ -11,7 +11,6 @@ class App extends Component {
           </div>
           <div className="commandBox">
             <div className="acHeading">
-              Green
             </div>
             <div className="actionCards">
               <div className="actionCard">
