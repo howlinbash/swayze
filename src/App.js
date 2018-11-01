@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Wheel from './Wheel';
+import Marquee from './Marquee';
 import PointsBoard from './PointsBoard';
+import Wheel from './Wheel';
 import './App.css';
 
 class App extends Component {
@@ -8,11 +9,7 @@ class App extends Component {
     return (
       <div className="app">
         <div className="machine">
-          <div className="marquee">
-            <div className="marqueeText">
-              SPLAT-A-PAT
-            </div>
-          </div>
+          <Marquee />
           <div className="console">
             <PointsBoard />
             <Wheel />
