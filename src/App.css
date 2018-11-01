@@ -8,17 +8,18 @@
 }
 
 .aimHome {
-  background-color: grey;
+  background-color: green;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   height: 800px;
   justify-content: space-between;
   width: 1000px;
+  padding: 10px;
 }
 
 .aimBody {
-  background-color: blue;
+  background-color: brown;
   border-radius: 20px;
   height: 60%;
   margin: 10px;
@@ -26,7 +27,7 @@
 }
 
 .commandBox {
-  background-color: red;
+  background-color: purple;
   border-radius: 20px;
   height: 100%;
   margin: 10px;
@@ -37,7 +38,7 @@
 }
 
 .acHeading {
-  background-color: green;
+  background-color: gold;
   border-radius: 20px;
   height: 100px;
   margin: 10px;
@@ -46,6 +47,7 @@
 
 .actionCards {
   background-color: brown;
+  border-radius: 20px;
   height: 100%;
   margin: 10px;
   padding: 10px;
