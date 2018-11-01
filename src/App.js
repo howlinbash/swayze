@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import pat from './faces/pat.png';
-import will from './faces/will.png';
-import hilary from './faces/hilary.png';
+import { hilary, pat, will } from './faces';
 
 class App extends Component {
   render() {
