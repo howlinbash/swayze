@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Wheel from './Wheel';
+import PointsBoard from './PointsBoard';
 import './App.css';
 
 class App extends Component {
@@ -13,11 +14,7 @@ class App extends Component {
             </div>
           </div>
           <div className="console">
-            <div className="pointsBoard">
-              <div className="points">
-                20 POINTS
-              </div>
-            </div>
+            <PointsBoard />
             <Wheel />
           </div>
         </div>
