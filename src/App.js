@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import paddy from './Patrick_Swayze.gif';
+import paddy from './pat.gif';
 
 class App extends Component {
   render() {
