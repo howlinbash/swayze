@@ -8,8 +8,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { isSpinning: false }
+    this.spinWheel = this.spinWheel.bind(this);
     this.toggleSpinner = this.toggleSpinner.bind(this);
   }
+
+  delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
   toggleSpinner() {
     this.setState(state => ({
@@ -17,11 +20,18 @@ class App extends Component {
     }));
   }
 
+  spinWheel() {
+    this.toggleSpinner();
+    this.delay(3000).then(() => {
+      this.toggleSpinner();
+    })
+  }
+
   render() {
     return (
       <div className="app">
         <div className="machine">
-          <Marquee onClick={this.toggleSpinner} />
+          <Marquee onClick={this.spinWheel} />
           <div className="console">
             <PointsBoard />
             <Wheel isSpinning={this.state.isSpinning} />
