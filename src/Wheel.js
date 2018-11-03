@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { pat, question } from './faces';
+import Face from './Face';
+import { question } from './faces';
 import './Wheel.css';
 
 class Wheel extends Component {
@@ -15,7 +16,11 @@ class Wheel extends Component {
       <div className="wheel">
         {this.windows.map(window => (
           <div className="window">
-            <img src={isSpinning ? pat : question} />
+            {isSpinning ? (
+              <Face />
+            ) : (
+              <img src={question} />
+            )}
           </div>
         ))}
       </div>

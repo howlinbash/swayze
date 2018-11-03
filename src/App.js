@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { delay } from './utils';
 import Marquee from './Marquee';
 import PointsBoard from './PointsBoard';
 import Wheel from './Wheel';
@@ -12,7 +13,6 @@ class App extends Component {
     this.toggleSpinner = this.toggleSpinner.bind(this);
   }
 
-  delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
   toggleSpinner() {
     this.setState(state => ({
@@ -22,9 +22,7 @@ class App extends Component {
 
   spinWheel() {
     this.toggleSpinner();
-    this.delay(3000).then(() => {
-      this.toggleSpinner();
-    })
+    delay(3000).then(() => {this.toggleSpinner()})
   }
 
   render() {
