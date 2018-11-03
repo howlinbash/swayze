@@ -15,7 +15,11 @@ class Wheel extends Component {
       <div className="wheel">
         {this.windows.map(window => (
           <div className="window">
-            <img src={isSpinning ? pat : question} />
+            {isSpinning ? (
+              <img className="blink" src={pat} />
+            ) : (
+              <img src={question} />
+            )}
           </div>
         ))}
       </div>
