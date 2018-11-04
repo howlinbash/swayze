@@ -10,6 +10,11 @@
   flex-direction: column;
 }
 
+.window:active {
+  border: 2px solid black;
+  background-color: lightblue;
+}
+
 .window img {
   align-self: center;
   height: 100%;
