@@ -87,6 +87,7 @@ class App extends Component {
               answer={answer}
               attempt={attempt}
               isSpinning={this.state.isSpinning}
+              jeff={round === 3 && attempt === 3}
               round={rules[round].round}
             />
             <Wheel
