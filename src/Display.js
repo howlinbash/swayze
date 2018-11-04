@@ -1,9 +1,9 @@
 import React from 'react';
-import './PointsBoard.css';
+import './Display.css';
 
 const PointsBoard = ({ round }) => (
-  <div className="pointsBoard">
-    <div className="points">
+  <div className="display">
+    <div className="message">
       {round ? `ROUND ${round}` : 'GAME OVER'}
     </div>
   </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { delay } from './utils';
 import Marquee from './Marquee';
-import PointsBoard from './PointsBoard';
+import Display from './Display';
 import Wheel from './Wheel';
 import rules from './rules';
 import './App.css';
@@ -70,7 +70,7 @@ class App extends Component {
         <div className="machine">
           <Marquee onClick={() => this.handleClick()} />
           <div className="console">
-            <PointsBoard
+            <Display
               answer={answer}
               round={rules[round].round}
             />
