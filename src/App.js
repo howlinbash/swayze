@@ -10,8 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gameStarted: false,
-      gameOver: false,
+      gameOver: true,
       isSpinning: false,
       round: 0
     }
@@ -31,18 +30,23 @@ class App extends Component {
   }
 
   updateGameState() {
-    const { gameStarted, round } = this.state;
-    if (round === 0 && !gameStarted) {
-      this.setState(state => ({gameStarted: true}));
+    const { gameOver, round } = this.state;
+    if (gameOver) {
+      this.setState(state => ({
+        gameOver: false,
+        round: 0,
+      }));
       return;
     }
-    if (round === 4) {
-      this.setState(state => ({gameStarted: false}));
+    if (round === rules.length) {
+      this.setState(state => ({
+        gameOver: true,
+        round: 0,
+      }));
       return;
     }
     this.setState(state => {
       const nextRound = state.round + 1;
-      console.log(nextRound);
       return ({round: nextRound});
     });
   }
@@ -54,7 +58,7 @@ class App extends Component {
 
 
   render() {
-    const { gameOver, round } = this.state;
+    const { round } = this.state;
 
     return (
       <div className="app">
@@ -62,8 +66,7 @@ class App extends Component {
           <Marquee onClick={() => this.handleClick()} />
           <div className="console">
             <PointsBoard
-              gameOver={gameOver}
-              round={round < rules.length ? rules[round].round : false}
+              round={rules[round].round}
             />
             <Wheel requestStartSpin={this.state.isSpinning} round={round} />
           </div>
