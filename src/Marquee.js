@@ -1,8 +1,8 @@
 import React from 'react';
 import './Marquee.css';
 
-const Marquee = () => (
-  <div className="marquee">
+const Marquee = ({ onClick }) => (
+  <div className="marquee" onClick={onClick} >
     <div className="marqueeText">
       SPLAT-A-PAT
     </div>
