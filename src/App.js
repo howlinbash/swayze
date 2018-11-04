@@ -22,7 +22,7 @@ class App extends Component {
 
   spinWheel() {
     this.toggleSpinner();
-    delay(3000).then(() => {this.toggleSpinner()})
+    delay(1950).then(() => {this.toggleSpinner()})
   }
 
   render() {
@@ -32,7 +32,7 @@ class App extends Component {
           <Marquee onClick={this.spinWheel} />
           <div className="console">
             <PointsBoard />
-            <Wheel isSpinning={this.state.isSpinning} />
+            <Wheel requestStartSpin={this.state.isSpinning} />
           </div>
         </div>
       </div>

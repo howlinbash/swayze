@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { delay } from './utils';
 import { pat } from './faces';
 
 class Face extends Component {
@@ -9,12 +8,24 @@ class Face extends Component {
   }
 
   componentDidMount() {
-    delay(1000).then(() => {this.blink()})
+    const { display } = this.state;
+    this.off = setTimeout(() => {
+      this.blink(display);
+      this.off = 0;
+    }, 150);
   }
 
-  blink() {
+  componentWillUnmount() {
+    if (this.off) {
+        clearTimeout(this.off);
+        this.off = 0;
+    }
+  }
+
+  blink(state) {
+    const display = state === '' ? 'none' : '';
     this.setState(state => ({
-      display: 'none'
+      display,
     }));
   }
 
