@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { delay } from './utils';
-import Face from './Face';
-import { question } from './faces';
+import Window from './Window';
 import './Wheel.css';
 
 class Wheel extends Component {
@@ -31,17 +29,6 @@ class Wheel extends Component {
     }
   }
 
-  focus(wheel) {
-    this.setState(state => ({
-      focus: wheel
-    }));
-  }
-
-  getNextKey(prevKey) {
-    if (prevKey === 2) { return 0 };
-    return prevKey + 1;
-  }
-
   alternateWindows() {
     const { windows } = this.state;
     let key = 0;
@@ -53,22 +40,30 @@ class Wheel extends Component {
     );
   }
 
+  focus(wheel) {
+    this.setState(state => ({
+      focus: wheel
+    }));
+  }
+
+  getNextKey(prevKey) {
+    if (prevKey === 2) { return 0 };
+    return prevKey + 1;
+  }
+
   render() {
     const { focus, isSpinning, windows } = this.state;
 
     return (
       <div className="wheel">
-        {windows.map(({id}) => {
-		  return (
-			<div className="window" key={id} >
-			  {isSpinning ? (
-				focus === id ? <Face id={id} /> : null
-			  ) : (
-				<img src={question} />
-			  )}
-			</div>
-		  )}
-		)}
+        {windows.map(({id}) => (
+          <Window
+            focus={focus}
+            id={id}
+            isSpinning={isSpinning}
+            key={id}
+          />
+        ))}
       </div>
     );
   }
