@@ -18,7 +18,6 @@ class Window extends Component {
   }
 
   handleClick(id) {
-    console.log('clicky', id);
     this.setState(state => ({ guessMade: true }));
   }
 

@@ -1,10 +1,11 @@
 import React from 'react';
+import rules from './rules';
 import './PointsBoard.css';
 
-const PointsBoard = () => (
+const PointsBoard = ({ round }) => (
   <div className="pointsBoard">
     <div className="points">
-      20 POINTS
+      {`ROUND ${rules[round].round}`}
     </div>
   </div>
 );
