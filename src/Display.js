@@ -1,7 +1,7 @@
 import React from 'react';
 import './Display.css';
 
-const PointsBoard = ({ round }) => (
+const Display = ({ round }) => (
   <div className="display">
     <div className="message">
       {round ? `ROUND ${round}` : 'GAME OVER'}
@@ -9,4 +9,4 @@ const PointsBoard = ({ round }) => (
   </div>
 );
 
-export default PointsBoard;
+export default Display;
