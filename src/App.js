@@ -11,6 +11,7 @@ class App extends Component {
     super(props);
     this.state = {
       answer: null,
+      attempt: 0,
       gameOver: true,
       isSpinning: false,
       round: 0
@@ -32,6 +33,7 @@ class App extends Component {
 
   updateGameState() {
     const { gameOver, round } = this.state;
+
     if (gameOver) {
       this.setState(state => ({
         gameOver: false,
@@ -39,6 +41,7 @@ class App extends Component {
       }));
       return;
     }
+
     if (round === rules.length) {
       this.setState(state => ({
         gameOver: true,
@@ -46,14 +49,24 @@ class App extends Component {
       }));
       return;
     }
+
     this.setState(state => {
       const nextRound = state.round + 1;
-      return ({round: nextRound});
+      return ({
+        attempt: 0,
+        round: nextRound
+      });
     });
   }
 
   handleAnswer(answer) {
-    this.setState(state => ({ answer: answer }));
+    this.setState(state => {
+      const nextAttempt = state.attempt + 1;
+      return ({
+        attempt: nextAttempt,
+        answer: answer
+      })
+    });
   }
 
   handleClick() {
@@ -63,7 +76,7 @@ class App extends Component {
 
 
   render() {
-    const { answer, round } = this.state;
+    const { answer, attempt, round } = this.state;
 
     return (
       <div className="app">
@@ -72,6 +85,8 @@ class App extends Component {
           <div className="console">
             <Display
               answer={answer}
+              attempt={attempt}
+              isSpinning={this.state.isSpinning}
               round={rules[round].round}
             />
             <Wheel
