@@ -10,6 +10,13 @@ class Window extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    const { isSpinning } = this.props;
+    if (isSpinning !== prevProps.isSpinning) {
+      this.setState(state => ({ guessMade: false }));
+    }
+  }
+
   handleClick(id) {
     console.log('clicky', id);
     this.setState(state => ({ guessMade: true }));
