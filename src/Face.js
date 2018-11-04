@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { pat } from './faces';
 
 class Face extends Component {
   constructor(props) {
@@ -32,7 +31,7 @@ class Face extends Component {
   render() {
     const { display } = this.state;
 
-    return <img src={pat} style={{ display }} />
+    return <img src={this.props.face} style={{ display }} />
   }
 };
 

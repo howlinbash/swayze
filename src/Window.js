@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Face from './Face';
-import { question } from './faces';
+import { pat, question } from './faces';
 import './Window.css';
 
 class Window extends Component {
@@ -23,7 +23,7 @@ class Window extends Component {
       onClick={() => this.handleClick(id)}
     >
       {isSpinning ? (
-        focus === id ? <Face id={id} /> : null
+        focus === id ? <Face face={pat} id={id} /> : null
       ) : (
         <img src={question} />
       )}
