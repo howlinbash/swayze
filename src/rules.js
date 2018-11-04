@@ -1,4 +1,4 @@
-import { bruce, hilary, jeff, meryl, pat, question, will } from './faces';
+import { bruce, hilary, jeff, meryl, pat, will } from './faces';
 
 const rules = [
   {

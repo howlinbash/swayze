@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Face from './Face';
-import { jeff, pat, question } from './faces';
+import { pat, question } from './faces';
 import './Window.css';
 
 class Window extends Component {
@@ -18,17 +18,19 @@ class Window extends Component {
   }
 
   handleClick(id) {
+    const { answer, face, } = this.props;
     this.setState(state => ({ guessMade: true }));
+    answer(face === pat)
   }
 
   render() {
-  const { focus, id, isSpinning } = this.props;
+  const { face, focus, id, isSpinning } = this.props;
   const { guessMade } = this.state;
 
   if (guessMade) {
     return (
       <div className="window" key={id}>
-        <img src={jeff} />
+        <img src={face} />
       </div>
     )
   }
