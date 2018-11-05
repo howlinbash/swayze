@@ -52,12 +52,15 @@ class Wheel extends Component {
   }
 
   render() {
+    const { answer, faces, } = this.props;
     const { focus, isSpinning, windows } = this.state;
 
     return (
       <div className="wheel">
         {windows.map(({id}) => (
           <Window
+            answer={answer}
+            face={faces[id]}
             focus={focus}
             id={id}
             isSpinning={isSpinning}
