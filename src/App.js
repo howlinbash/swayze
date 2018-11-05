@@ -19,7 +19,6 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-
   toggleSpinner() {
     this.setState(state => ({
       isSpinning: !state.isSpinning
@@ -42,7 +41,7 @@ class App extends Component {
       return;
     }
 
-    if (round === rules.length) {
+    if (round === rules.length - 1) {
       this.setState(state => ({
         gameOver: true,
         round: 0,
@@ -70,13 +69,16 @@ class App extends Component {
   }
 
   handleClick() {
+    const { round } = this.state;
     this.updateGameState();
-    this.spinWheel();
+    if (round !== rules.length - 1) {
+      this.spinWheel();
+    }
   }
 
 
   render() {
-    const { answer, attempt, round } = this.state;
+    const { answer, attempt, gameOver, round } = this.state;
 
     return (
       <div className="app">
@@ -86,14 +88,15 @@ class App extends Component {
             <Display
               answer={answer}
               attempt={attempt}
+              gameOver={gameOver}
               isSpinning={this.state.isSpinning}
               jeff={round === 3 && attempt === 3}
-              round={rules[round].round}
+              round={round < 4 && rules[round].round}
             />
             <Wheel
               answer={answer => this.handleAnswer(answer)}
               requestStartSpin={this.state.isSpinning}
-              faces={rules[round]}
+              faces={round < 4 && rules[round]}
             />
           </div>
         </div>

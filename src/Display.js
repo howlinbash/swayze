@@ -8,7 +8,12 @@ class Display extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { answer, attempt, jeff, isSpinning, round } = this.props;
+    const { answer, attempt, gameOver, isSpinning, round } = this.props;
+
+    if (gameOver && gameOver !== prevProps.gameOver) {
+      this.setState(state => ({ message: "GAME OVER" }));
+      return;
+    }
 
     if (isSpinning !== prevProps.isSpinning) {
       if (!isSpinning) {
