@@ -83,7 +83,7 @@ class App extends Component {
     return (
       <div className="app">
         <div className="machine">
-          <Marquee onClick={() => this.handleClick()} />
+          <Marquee onClick={this.handleClick} />
           <div className="console">
             <Display
               answer={answer}
