@@ -1,0 +1,20 @@
+{
+  "main.css": "/swayze/static/css/main.bccde7a8.chunk.css",
+  "main.js": "/swayze/static/js/main.65759bb9.chunk.js",
+  "main.js.map": "/swayze/static/js/main.65759bb9.chunk.js.map",
+  "static/js/1.5b17bb0c.chunk.js": "/swayze/static/js/1.5b17bb0c.chunk.js",
+  "static/js/1.5b17bb0c.chunk.js.map": "/swayze/static/js/1.5b17bb0c.chunk.js.map",
+  "runtime~main.js": "/swayze/static/js/runtime~main.60446eb3.js",
+  "runtime~main.js.map": "/swayze/static/js/runtime~main.60446eb3.js.map",
+  "static/media/bruce.png": "/swayze/static/media/bruce.747bda94.png",
+  "static/media/hilary.png": "/swayze/static/media/hilary.153e885c.png",
+  "static/media/jeff.png": "/swayze/static/media/jeff.fceb825f.png",
+  "static/media/meryl.png": "/swayze/static/media/meryl.e6946f91.png",
+  "static/media/pat.png": "/swayze/static/media/pat.6506326a.png",
+  "static/media/question.png": "/swayze/static/media/question.8ffd5475.png",
+  "static/media/will.png": "/swayze/static/media/will.e4887cf2.png",
+  "static/css/main.bccde7a8.chunk.css.map": "/swayze/static/css/main.bccde7a8.chunk.css.map",
+  "index.html": "/swayze/index.html",
+  "precache-manifest.f05ac012a712399a03a4b9153f2d2ba9.js": "/swayze/precache-manifest.f05ac012a712399a03a4b9153f2d2ba9.js",
+  "service-worker.js": "/swayze/service-worker.js"
+}
