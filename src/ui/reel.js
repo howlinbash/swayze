@@ -1,16 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import { Frame } from "../design";
 import Face from "./face";
 import { pat, question } from "../faces";
 
-const Container = styled.div`
-  border: 2px solid black;
-  background-color: pink;
-  border-radius: 1.5vmin;
-  padding: 0.8vmin;
-  display: grid;
-  place-items: center;
-
+const Container = styled(Frame)`
   :active {
     border: 2px solid black;
     background-color: lightblue;
@@ -29,7 +23,7 @@ const Reel = ({ face, focus, id, isSpinning }) => {
 
   if (guessMade) {
     return (
-      <Container key={id}>
+      <Container border="black" center color="pink" key={id} pd="0.8vmin">
         <Img src={face} />
       </Container>
     )
@@ -37,8 +31,12 @@ const Reel = ({ face, focus, id, isSpinning }) => {
 
   return (
     <Container
+      border="black"
+      center
+      color="pink"
       key={id}
       onClick={() => console.log("window clicked", id)}
+      pd="0.8vmin"
     >
       {isSpinning && !guessMade ? (
         focus === id ? <Face face={pat} id={id} /> : null

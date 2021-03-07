@@ -1,16 +1,6 @@
 import React from "react";
-import styled from "styled-components";
+import { Frame } from "../design";
 import Reel from "./reel";
-
-const Unit = styled.div`
-  border: 2px solid gold;
-  background-color: brown;
-  border-radius: 1.5vmin;
-  padding: 1.5vmin;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 1.5vmin;
-`;
 
 const ReelUnit = ({ answer, requestStartSpin, faces }) => {
   const focus = "";
@@ -22,7 +12,7 @@ const ReelUnit = ({ answer, requestStartSpin, faces }) => {
   ];
 
   return (
-    <Unit>
+    <Frame border="gold" color="brown" gtc="1fr 1fr 1fr" pd="1.5vmin">
       {windows.map(({id}) => (
         <Reel
           answer={answer}
@@ -33,7 +23,7 @@ const ReelUnit = ({ answer, requestStartSpin, faces }) => {
           key={id}
         />
       ))}
-    </Unit>
+    </Frame>
   );
 };
 

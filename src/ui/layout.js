@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Frame } from "../design";
 import Marquee from "./marquee";
 import DisplayBoard from "./display-board";
 import ReelUnit from "./reel-unit";
@@ -12,33 +13,12 @@ const Wallpaper = styled.div`
   background-color: #282c34;
 `;
 
-const Console = styled.div`
-  background-color: green;
-  border-radius: 1.5vmin;
-  height: 65vmin;
-  width: 80vmin;
-  padding: 1.5vmin;
-  display: grid;
-  grid-template-rows: 1fr 2fr;
-  grid-gap: 1.5vmin;
-`;
-
-const MainGlass = styled.div`
-  border: 2px solid darkgrey;
-  background-color: purple;
-  border-radius: 1.5vmin;
-  padding: 1.5vmin;
-  display: grid;
-  grid-template-rows: auto 1fr;
-  grid-gap: 1.5vmin;
-`;
-
 const Layout = () => {
   return (
       <Wallpaper>
-        <Console>
+        <Frame color="green" gtr="1fr 2fr" h="65vmin" pd="1.5vmin" w="80vmin">
           <Marquee onClick={() => console.log("marquee clicked")} />
-          <MainGlass>
+          <Frame border="darkgrey" color="purple" gtr="auto 1fr" pd="1.5vmin">
             <DisplayBoard
               answer={null}
               attempt={0}
@@ -52,8 +32,8 @@ const Layout = () => {
               requestStartSpin={false}
               faces={rules[0]}
             />
-          </MainGlass>
-        </Console>
+          </Frame>
+        </Frame>
       </Wallpaper>
   );
 }

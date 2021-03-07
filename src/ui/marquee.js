@@ -1,13 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { Frame } from "../design";
 
-const Container = styled.div`
-  border: 2px solid darkgrey;
-  background-color: brown;
-  border-radius: 1.5vmin;
-  display: grid;
-  place-items: center;
-
+const Container = styled(Frame)`
   :hover {
     border: 2px solid black;
     background-color: lightblue;
@@ -27,7 +22,7 @@ const Title = styled.div`
 `;
 
 const Marquee = ({ onClick }) => (
-  <Container onClick={onClick} >
+  <Container border="darkgrey" center color="brown" onClick={onClick}>
     <Title>SPLAT-A-PAT</Title>
   </Container>
 );

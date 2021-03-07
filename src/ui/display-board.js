@@ -1,15 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
-const Board = styled.div`
-  border: 2px solid black;
-  background-color: lightblue;
-  border-radius: 1.5vmin;
-  height: 5vmin;
-  padding: 0.8vmin;
-  display: grid;
-  place-items: center;
-`;
+import { Frame } from "../design";
 
 const Message = styled.div`
   font-size: 4vmin;
@@ -19,11 +10,11 @@ const Message = styled.div`
 const DisplayBoard = ({ answer, attempt, gameOver, isSpinning, jeff, round }) => {
   const message = "SPIN THE WHEEL"
   return (
-    <Board>
+    <Frame border="black" center color="lightblue" h="5vmin" pd="0.8vmin">
       <Message>
         {jeff ? "TRIPLE JEFF - OHMIGOD!" : message}
       </Message>
-    </Board>
+    </Frame>
   );
 };
 
