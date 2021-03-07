@@ -1,13 +1,10 @@
-
 .window {
   border: 2px solid black;
   background-color: pink;
-  border-radius: 20px;
-  margin: 10px;
-  padding: 10px;
-  width: 31%;
-  display: flex;
-  flex-direction: column;
+  border-radius: 1.5vmin;
+  padding: 0.8vmin;
+  display: grid;
+  place-items: center;
 }
 
 .window:active {
@@ -16,6 +13,7 @@
 }
 
 .window img {
-  align-self: center;
   height: 100%;
+  width: 100%;
+  object-fit: contain;
 }

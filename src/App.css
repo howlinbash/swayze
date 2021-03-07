@@ -9,23 +9,21 @@
 
 .machine {
   background-color: green;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  height: 800px;
-  justify-content: space-between;
-  width: 1000px;
-  padding: 10px;
+  border-radius: 1.5vmin;
+  height: 65vmin;
+  width: 80vmin;
+  padding: 1.5vmin;
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  grid-gap: 1.5vmin;
 }
 
 .console {
   border: 2px solid darkgrey;
   background-color: purple;
-  border-radius: 20px;
-  height: 100%;
-  margin: 10px;
-  padding: 10px;
-
-  display: flex;
-  flex-direction: column;
+  border-radius: 1.5vmin;
+  padding: 1.5vmin;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-gap: 1.5vmin;
 }

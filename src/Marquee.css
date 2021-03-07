@@ -1,14 +1,9 @@
 .marquee {
   border: 2px solid darkgrey;
   background-color: brown;
-  border-radius: 20px;
-  height: 60%;
-  margin: 10px;
-  padding: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  border-radius: 1.5vmin;
+  display: grid;
+  place-items: center;
 }
 
 .marquee:hover {
@@ -23,7 +18,7 @@
 
 .marqueeText {
   color: gold;
-  text-shadow: -10px 0 black, 0 10px black, 10px 0 black, 0 -10px black;
-  font-size: 180px;
+  text-shadow: -0.8vmin 0 black, 0 0.8vmin black, 0.8vmin 0 black, 0 -0.8vmin black;
+  font-size: 14.5vmin;
   font-family: impact;
 }

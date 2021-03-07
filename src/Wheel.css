@@ -1,11 +1,9 @@
 .wheel {
   border: 2px solid gold;
   background-color: brown;
-  border-radius: 20px;
-  height: 100%;
-  margin: 10px;
-  padding: 10px;
-
-  display: flex;
-  flex-direction: row;
+  border-radius: 1.5vmin;
+  padding: 1.5vmin;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1.5vmin;
 }
