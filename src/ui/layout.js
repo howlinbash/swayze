@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
-import Marquee from './marquee';
-import DisplayBoard from './display-board';
-import ReelUnit from './reel-unit';
-import rules from '../rules';
+import Marquee from "./marquee";
+import DisplayBoard from "./display-board";
+import ReelUnit from "./reel-unit";
+import rules from "../rules";
 
 const Wallpaper = styled.div`
   display: grid;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
 
 const Board = styled.div`
@@ -21,7 +21,7 @@ const DisplayBoard = ({ answer, attempt, gameOver, isSpinning, jeff, round }) =>
   return (
     <Board>
       <Message>
-        {jeff ? 'TRIPLE JEFF - OHMIGOD!' : message}
+        {jeff ? "TRIPLE JEFF - OHMIGOD!" : message}
       </Message>
     </Board>
   );

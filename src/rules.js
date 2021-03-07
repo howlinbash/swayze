@@ -1,29 +1,29 @@
-import { bruce, hilary, jeff, meryl, pat, will } from './faces';
+import { bruce, hilary, jeff, meryl, pat, will } from "./faces";
 
 const rules = [
   {
     alpha: jeff,
     beta: pat,
     charlie: will,
-    round: 'ONE',
+    round: "ONE",
   },
   {
     alpha: bruce,
     beta: pat,
     charlie: meryl,
-    round: 'TWO',
+    round: "TWO",
   },
   {
     alpha: will,
     beta: hilary,
     charlie: pat,
-    round: 'THREE',
+    round: "THREE",
   },
   {
     alpha: jeff,
     beta: jeff,
     charlie: jeff,
-    round: 'FOUR',
+    round: "FOUR",
   }
 ]
 

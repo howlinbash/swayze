@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
-import Reel from './reel';
+import Reel from "./reel";
 
 const Unit = styled.div`
   border: 2px solid gold;
@@ -16,9 +16,9 @@ const ReelUnit = ({ answer, requestStartSpin, faces }) => {
   const focus = "";
   const isSpinning = false;
   const windows = [
-    {id: 'alpha'},
-    {id: 'beta'},
-    {id: 'charlie'}
+    {id: "alpha"},
+    {id: "beta"},
+    {id: "charlie"}
   ];
 
   return (

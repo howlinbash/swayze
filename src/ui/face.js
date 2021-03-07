@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const Face = ({ face, id }) => {
   return <img src={face} style={{ display: "" }} />

@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
-import Face from './face';
-import { pat, question } from '../faces';
+import Face from "./face";
+import { pat, question } from "../faces";
 
 const Container = styled.div`
   border: 2px solid black;
