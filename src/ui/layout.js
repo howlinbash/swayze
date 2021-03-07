@@ -6,15 +6,13 @@ import ReelUnit from './reel-unit';
 import rules from '../rules';
 
 const Wallpaper = styled.div`
-  align-items: center;
-  background-color: #282c34;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   min-height: 100vh;
+  background-color: #282c34;
 `;
 
-const Frame = styled.div`
+const Console = styled.div`
   background-color: green;
   border-radius: 1.5vmin;
   height: 65vmin;
@@ -38,7 +36,7 @@ const MainGlass = styled.div`
 const Layout = () => {
   return (
       <Wallpaper>
-        <Frame>
+        <Console>
           <Marquee onClick={() => console.log("marquee clicked")} />
           <MainGlass>
             <DisplayBoard
@@ -55,7 +53,7 @@ const Layout = () => {
               faces={rules[0]}
             />
           </MainGlass>
-        </Frame>
+        </Console>
       </Wallpaper>
   );
 }
