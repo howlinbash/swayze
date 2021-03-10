@@ -132,13 +132,13 @@ const getNextState = (state, event) => {
 const initMachine = (config, store) => {
   const chart = config;
 
-  const transition = nextState => {
+  const execTransition = nextState => {
     // Fire entry action
     nextState.entry && nextState.entry();
 
     // If state has an initial state we should transition to that instead
     if (nextState.initial) {
-      transition(machine.states.byId[nextState.initial]);
+      execTransition(machine.states.byId[nextState.initial]);
     } else {
       store.dispatch({ type: Machine.transition, state: nextState.path });
     };
@@ -151,13 +151,12 @@ const initMachine = (config, store) => {
     const id = getIdFromPath(machine.states.byName, currentState);
     const state = machine.states.byId[id];
     const nextState = getNextState(state, event);
-    nextState && transition(nextState)
+    nextState && execTransition(nextState)
   };
 
   return {
     receive,
-    states,
-    transition
+    states
   };
 };
 
