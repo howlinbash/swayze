@@ -1,3 +1,5 @@
+import { spin } from "../actions";
+
 const chart = {
   initial: "notStarted",
   states: {
@@ -10,6 +12,7 @@ const chart = {
       initial: "spinning",
       states: {
         spinning: {
+          entry: spin,
           on: {
             "STOP": "guessing"
           }

@@ -5,7 +5,7 @@ export const generateType = name => name.toUpperCase();
 const eventsConfig = {
   spin: {},
   stop: {},
-  peek: {},
+  peek: { props: ["id"] },
 };
 
 export const Types = makeTypes(eventsConfig);

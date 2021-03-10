@@ -41,6 +41,7 @@ export const makeStateNodes = chart => {
       // Create stateNode
       const node = {
         children: [],
+        entry: state.entry || null,
         events: state.on || null,
         id: nodeId,
         initial: state.initial || null,
@@ -132,14 +133,15 @@ const initMachine = (config, store) => {
   const chart = config;
 
   const transition = nextState => {
-    // If state has an initial state we should go to that instead
-    let state;
+    // Fire entry action
+    nextState.entry && nextState.entry();
+
+    // If state has an initial state we should transition to that instead
     if (nextState.initial) {
-      state = machine.states.byId[nextState.initial].path
+      transition(machine.states.byId[nextState.initial]);
     } else {
-      state = nextState.path;
-    }
-    store.dispatch({ type: Machine.transition, state });
+      store.dispatch({ type: Machine.transition, state: nextState.path });
+    };
   };
 
   const states = makeStateNodes(chart);

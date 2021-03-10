@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Frame } from "../design";
 import Face from "./face";
 import { pat, question } from "../faces";
+import { peek } from "../events";
 
 const Container = styled(Frame)`
   :active {
@@ -35,7 +36,7 @@ const Reel = ({ face, focus, id, isSpinning }) => {
       center
       color="pink"
       key={id}
-      onClick={() => console.log("window clicked", id)}
+      onClick={peek(id)}
       pd="0.8vmin"
     >
       {isSpinning && !guessMade ? (
