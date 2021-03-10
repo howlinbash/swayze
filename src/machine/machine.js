@@ -17,13 +17,13 @@ const getIdFromPath = (byName, path) => {
   return getIdFromName(byName, name);
 };
 
-const makeEvents = (byName, node) => {
-  if (!node.events) return null;
-  const events = {};
-  Object.entries(node.events).forEach(([k, v]) => {
-    events[k] = getIdFromName(byName, v);
+const makeTranistions = (byName, node) => {
+  if (!node.transitions) return null;
+  const transitions = {};
+  Object.entries(node.transitions).forEach(([k, v]) => {
+    transitions[k] = getIdFromName(byName, v);
   });
-  return events;
+  return transitions;
 };
 
 export const makeStateNodes = chart => {
@@ -42,12 +42,12 @@ export const makeStateNodes = chart => {
       const node = {
         children: [],
         entry: state.entry || null,
-        events: state.on || null,
         id: nodeId,
         initial: state.initial || null,
         name: stateName,
         parent: parent.id,
         path: `${parent.path}${parent.parent ? "/" : ""}${stateName}`,
+        transitions: state.on || null,
       };
 
       // Assign node to id table
@@ -72,13 +72,13 @@ export const makeStateNodes = chart => {
   const rootId = String(id);
   const rootNode = {
     children: [],
-    events: chart.on || null,
     id: rootId,
     initial: chart.initial,
     name: null,
     parent: null,
     path: "/",
     siblings: null,
+    transitions: chart.on || null,
   };
   byId[rootId] = rootNode;
   byName[rootNode.path] = [[rootId, rootNode.path]]
@@ -100,7 +100,7 @@ export const makeStateNodes = chart => {
 
     // Initial becomes id
     node.initial = node.initial && getIdFromName(byName, node.initial);
-    node.events = makeEvents(byName, node);
+    node.transitions = makeTranistions(byName, node);
     node["siblings"] = getSiblings(byId, node);
     if (node.children.length) {
       node.children.forEach(id => finishNodes(id));
@@ -113,10 +113,10 @@ export const makeStateNodes = chart => {
 };
 
 const getNextState = (state, event) => {
-  // Root doesn't even have events
-  if (state.id === "0" && !state.events) return null;
+  // Root doesn't even have transitions
+  if (state.id === "0" && !state.transitions) return null;
 
-  const localId = state.events && state.events[event.type];
+  const localId = state.transitions && state.transitions[event.type];
 
   // State found
   if (localId) return machine.states.byId[localId];
