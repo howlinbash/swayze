@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { spin } from "../events";
 import { Frame } from "../design";
 import Marquee from "./marquee";
 import DisplayBoard from "./display-board";
@@ -17,7 +18,7 @@ const Layout = () => {
   return (
       <Wallpaper>
         <Frame color="green" gtr="1fr 2fr" h="65vmin" pd="1.5vmin" w="80vmin">
-          <Marquee onClick={() => console.log("marquee clicked")} />
+          <Marquee onClick={spin()} />
           <Frame border="darkgrey" color="purple" gtr="auto 1fr" pd="1.5vmin">
             <DisplayBoard
               answer={null}
