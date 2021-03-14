@@ -1,9 +1,4 @@
-import { levelUp } from "../writes";
-import { spin } from "../actions";
-
-const correctGuess = ({ id }) => id === "charlie";
-const writeLevelUp = () => levelUp();
-const wasLastRound = () => false;
+import { correctGuess, spin, wasLastRound, writeLevelUp } from "../actions";
 
 const chart = {
   initial: "notStarted",

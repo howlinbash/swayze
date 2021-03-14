@@ -138,16 +138,16 @@ const getIdOrTransition = (state, event) => {
   return getIdOrTransition(parent, event);
 };
 
-const stateCanTransition = (transition, event) => {
+const stateCanTransition = (transition, event, getState) => {
   if (!transition.target) throw new Error("Transition has no target");
   if (transition.cond) {
     const { type, ...data } = event;
-    if (!transition.cond(data)) return null;
+    if (!transition.cond(data, getState())) return null;
   }
   return machine.states.byId[transition.target];
 };
 
-const getNextState = (state, event) => {
+const getNextState = (state, event, getState) => {
   const idOrTransition = getIdOrTransition(state, event);
   if (!idOrTransition) return null;
 
@@ -155,7 +155,7 @@ const getNextState = (state, event) => {
     return machine.states.byId[idOrTransition];
   };
 
-  return stateCanTransition(idOrTransition, event);
+  return stateCanTransition(idOrTransition, event, getState);
 };
 
 const initMachine = (config, store) => {
@@ -164,19 +164,20 @@ const initMachine = (config, store) => {
   const execTransition = (newState, event) => {
     // Handle transient transition
     if (newState.always) {
-      const nextState = stateCanTransition(newState.always, event);
+      const nextState = stateCanTransition(newState.always, event, store.getState);
       if (nextState) {
-        execTransition(nextState);
+        execTransition(nextState, event);
         return;
       }
     }
 
+    const { type, ...data } = event;
     // Handle entry action
-    newState.entry && newState.entry();
+    newState.entry && newState.entry(data, store.getState());
 
     // Handle initial state
     if (newState.initial) {
-      execTransition(machine.states.byId[newState.initial]);
+      execTransition(machine.states.byId[newState.initial], event);
       return;
     }
 
@@ -190,7 +191,7 @@ const initMachine = (config, store) => {
     const currentState = store.getState().chart;
     const id = getIdFromPath(machine.states.byName, currentState);
     const state = machine.states.byId[id];
-    const nextState = getNextState(state, event);
+    const nextState = getNextState(state, event, store.getState);
     nextState && execTransition(nextState, event)
   };
 
