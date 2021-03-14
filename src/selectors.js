@@ -2,6 +2,8 @@ export const getAppState = state => state.chart;
 
 export const getIsRevealed = (state, id) => state.ui[id];
 
+export const getIsSpinning = state => state.chart === "/playing/spinning";
+
 export const getLevelNo = state => state.level;
 
 export const getLevel = state => {

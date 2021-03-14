@@ -42,7 +42,7 @@ const Reel = ({ face, focus, id, isSpinning }) => {
       onClick={peek(id)}
       pd="0.8vmin"
     >
-      {isSpinning && !guessMade ? (
+      {isSpinning ? (
         focus === id ? <Face face={faces[0]} id={id} /> : null
       ) : isRevealed ? <Face face={faces[face]} id={id} /> : (
         <Img src={question} />
