@@ -1,5 +1,7 @@
 import { spin } from "../actions";
 
+const correctGuess = ({ id }) => id === "charlie";
+
 const chart = {
   initial: "notStarted",
   states: {
@@ -19,7 +21,10 @@ const chart = {
         },
         guessing: {
           on: {
-            "PEEK": "found"
+            "PEEK": {
+              target: "found",
+              cond: correctGuess
+            }
           }
         },
         found: {

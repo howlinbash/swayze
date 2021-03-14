@@ -21,7 +21,9 @@ const makeTranistions = (byName, node) => {
   if (!node.transitions) return null;
   const transitions = {};
   Object.entries(node.transitions).forEach(([k, v]) => {
-    transitions[k] = getIdFromName(byName, v);
+    transitions[k] = typeof v === "string"
+      ? getIdFromName(byName, v)
+      : { ...v, target: getIdFromName(byName, v.target) };
   });
   return transitions;
 };
@@ -112,21 +114,41 @@ export const makeStateNodes = chart => {
   return { byId, byName };
 };
 
-const getNextState = (state, event) => {
+const getIdOrTransition = (state, event) => {
   // Root doesn't even have transitions
   if (state.id === "0" && !state.transitions) return null;
 
-  const localId = state.transitions && state.transitions[event.type];
+  const transition = state.transitions && state.transitions[event.type];
 
-  // State found
-  if (localId) return machine.states.byId[localId];
+  // Transition found
+  if (transition) return transition;
 
-  // Not even a root event
+  // Root has no transition for this event
   if (state.id === "0") return null;
 
   // Not found yet, try the parent.
   const parent = machine.states.byId[state.parent];
-  return getNextState(parent, event);
+  return getIdOrTransition(parent, event);
+};
+
+const stateCanTransition = (event, transition) => {
+  if (!transition.target) throw new Error("Transition has no target");
+  if (transition.cond) {
+    const { type, ...data } = event;
+    if (!transition.cond(data)) return null;
+  }
+  return machine.states.byId[transition.target];
+};
+
+const getNextState = (state, event) => {
+  const idOrTransition = getIdOrTransition(state, event);
+  if (!idOrTransition) return null;
+
+  if (typeof idOrTransition === "string") {
+    return machine.states.byId[idOrTransition];
+  };
+
+  return stateCanTransition(event, idOrTransition);
 };
 
 const initMachine = (config, store) => {
