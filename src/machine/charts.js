@@ -1,7 +1,9 @@
+import { levelUp } from "../writes";
 import { spin } from "../actions";
 
 const correctGuess = ({ id }) => id === "charlie";
-const wasLastRound = () => true;
+const writeLevelUp = () => levelUp();
+const wasLastRound = () => false;
 
 const chart = {
   initial: "notStarted",
@@ -33,6 +35,7 @@ const chart = {
             target: "gameOver",
             cond: wasLastRound
           },
+          entry: writeLevelUp,
           on: {
             "SPIN": "spinning"
           }
