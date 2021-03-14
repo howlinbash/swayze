@@ -8,12 +8,12 @@ const focus = "";
 
   return (
     <Frame border="gold" color="brown" gtc="1fr 1fr 1fr" pd="1.5vmin">
-      {faces.map(face => (
+      {faces.map((face, index) => (
         <Reel
           answer={answer}
           face={face}
           focus={focus}
-          id={face}
+          id={index}
           isSpinning={isSpinning}
           key={face}
         />
