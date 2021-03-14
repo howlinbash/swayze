@@ -17,6 +17,11 @@ const getIdFromPath = (byName, path) => {
   return getIdFromName(byName, name);
 };
 
+const makeAlways = (byName, always) => ({
+  ...always,
+  target: getIdFromName(byName, always.target)
+});
+
 const makeTranistions = (byName, node) => {
   if (!node.transitions) return null;
   const transitions = {};
@@ -42,6 +47,7 @@ export const makeStateNodes = chart => {
 
       // Create stateNode
       const node = {
+        always: state.always || null,
         children: [],
         entry: state.entry || null,
         id: nodeId,
@@ -101,6 +107,7 @@ export const makeStateNodes = chart => {
     const node = byId[id];
 
     // Initial becomes id
+    node.always = node.always && makeAlways(byName, node.always);
     node.initial = node.initial && getIdFromName(byName, node.initial);
     node.transitions = makeTranistions(byName, node);
     node["siblings"] = getSiblings(byId, node);
@@ -131,7 +138,7 @@ const getIdOrTransition = (state, event) => {
   return getIdOrTransition(parent, event);
 };
 
-const stateCanTransition = (event, transition) => {
+const stateCanTransition = (transition, event) => {
   if (!transition.target) throw new Error("Transition has no target");
   if (transition.cond) {
     const { type, ...data } = event;
@@ -148,22 +155,33 @@ const getNextState = (state, event) => {
     return machine.states.byId[idOrTransition];
   };
 
-  return stateCanTransition(event, idOrTransition);
+  return stateCanTransition(idOrTransition, event);
 };
 
 const initMachine = (config, store) => {
   const chart = config;
 
-  const execTransition = nextState => {
-    // Fire entry action
-    nextState.entry && nextState.entry();
+  const execTransition = (newState, event) => {
+    // Handle transient transition
+    if (newState.always) {
+      const nextState = stateCanTransition(newState.always, event);
+      if (nextState) {
+        execTransition(nextState);
+        return;
+      }
+    }
 
-    // If state has an initial state we should transition to that instead
-    if (nextState.initial) {
-      execTransition(machine.states.byId[nextState.initial]);
-    } else {
-      store.dispatch({ type: Machine.transition, state: nextState.path });
-    };
+    // Handle entry action
+    newState.entry && newState.entry();
+
+    // Handle initial state
+    if (newState.initial) {
+      execTransition(machine.states.byId[newState.initial]);
+      return;
+    }
+
+    // Update store
+    store.dispatch({ type: Machine.transition, state: newState.path });
   };
 
   const states = makeStateNodes(chart);
@@ -173,7 +191,7 @@ const initMachine = (config, store) => {
     const id = getIdFromPath(machine.states.byName, currentState);
     const state = machine.states.byId[id];
     const nextState = getNextState(state, event);
-    nextState && execTransition(nextState)
+    nextState && execTransition(nextState, event)
   };
 
   return {

@@ -1,6 +1,7 @@
 import { spin } from "../actions";
 
 const correctGuess = ({ id }) => id === "charlie";
+const wasLastRound = () => true;
 
 const chart = {
   initial: "notStarted",
@@ -28,6 +29,10 @@ const chart = {
           }
         },
         found: {
+          always: {
+            target: "gameOver",
+            cond: wasLastRound
+          },
           on: {
             "SPIN": "spinning"
           }
