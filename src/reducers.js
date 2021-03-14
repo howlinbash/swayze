@@ -31,6 +31,8 @@ const level = (state = 0, write) => {
 
 const ui = (state = [0, 0, 0], write) => {
   switch (write.type) {
+    case Writes.levelUp:
+      return [0, 0, 0];
     case Writes.reveal: {
       const nextState = [...state];
       nextState[write.id] = 1;

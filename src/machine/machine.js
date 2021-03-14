@@ -1,6 +1,7 @@
 import { setDispatch } from "../lib";
 import { setChart } from "../makeStates";
 import { Machine } from "../constants";
+import { Types as Writes } from "../writes";
 
 let machine;
 
@@ -50,6 +51,7 @@ export const makeStateNodes = chart => {
         always: state.always || null,
         children: [],
         entry: state.entry || null,
+        exit: state.exit || null,
         id: nodeId,
         initial: state.initial || null,
         name: stateName,
@@ -138,16 +140,16 @@ const getIdOrTransition = (state, event) => {
   return getIdOrTransition(parent, event);
 };
 
-const stateCanTransition = (transition, event, getState) => {
+const stateCanTransition = (transition, event, storeState) => {
   if (!transition.target) throw new Error("Transition has no target");
   if (transition.cond) {
     const { type, ...data } = event;
-    if (!transition.cond(data, getState())) return null;
+    if (!transition.cond(data, storeState)) return null;
   }
   return machine.states.byId[transition.target];
 };
 
-const getNextState = (state, event, getState) => {
+const getNextState = (state, event, storeState) => {
   const idOrTransition = getIdOrTransition(state, event);
   if (!idOrTransition) return null;
 
@@ -157,23 +159,23 @@ const getNextState = (state, event, getState) => {
 
   if (idOrTransition.actions) {
     const { type, ...eventPayload } = event;
-    fireAction(idOrTransition.actions, eventPayload, getState);
+    fireAction(idOrTransition.actions, eventPayload, storeState);
   }
 
-  return stateCanTransition(idOrTransition, event, getState);
+  return stateCanTransition(idOrTransition, event, storeState);
 };
 
-const fireAction = (actions, eventPayload, getState) => {
-  actions(eventPayload, getState());
+const fireAction = (actions, eventPayload, storeState) => {
+  actions(eventPayload, storeState);
 };
 
 const initMachine = (config, store) => {
   const chart = config;
 
-  const execTransition = (newState, event) => {
+  const execTransition = (newState, event, storeState) => {
     // Handle transient transition
     if (newState.always) {
-      const nextState = stateCanTransition(newState.always, event, store.getState);
+      const nextState = stateCanTransition(newState.always, event, storeState);
       if (nextState) {
         execTransition(nextState, event);
         return;
@@ -186,7 +188,7 @@ const initMachine = (config, store) => {
 
     // Handle initial state
     if (newState.initial) {
-      execTransition(machine.states.byId[newState.initial], event);
+      execTransition(machine.states.byId[newState.initial], event, storeState);
       return;
     }
 
@@ -197,11 +199,14 @@ const initMachine = (config, store) => {
   const states = makeStateNodes(chart);
 
   const receive = event => {
-    const currentState = store.getState().chart;
+    const storeState = store.getState();
+    const currentState = storeState.chart;
     const id = getIdFromPath(machine.states.byName, currentState);
     const state = machine.states.byId[id];
-    const nextState = getNextState(state, event, store.getState);
-    nextState && execTransition(nextState, event)
+    const nextState = getNextState(state, event, storeState);
+    const { type, ...eventPayload } = event;
+    state.exit && fireAction(state.exit, eventPayload, storeState)
+    nextState && execTransition(nextState, event, storeState)
   };
 
   return {
@@ -226,5 +231,6 @@ export const connectMachine = store => next => event => {
     store.dispatch({ type: Machine.setState, state: nextState.path });
     return;
   }
-  if (machine && event.type !== Machine.setState) machine.receive(event);
+  const ignores = [...Object.values(Writes), ...Object.values(Machine)];
+  if (machine && !ignores.includes(event.type)) machine.receive(event);
 };

@@ -37,7 +37,7 @@ const chart = {
             target: "gameOver",
             cond: wasLastRound
           },
-          entry: writeLevelUp,
+          exit: writeLevelUp,
           on: {
             "SPIN": "spinning"
           }
