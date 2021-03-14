@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import { Machine } from "./constants";
+import appConfig from "./config";
 import { Types as Writes } from "./writes";
 
 const chart = (state = "", write) => {
@@ -12,7 +13,14 @@ const chart = (state = "", write) => {
   }
 };
 
-const level = (state = 1, write) => {
+const config = (state = appConfig.levels, write) => {
+  switch (write.type) {
+    default:
+      return state;
+  }
+};
+
+const level = (state = 0, write) => {
   switch (write.type) {
     case Writes.levelUp:
       return state + 1;
@@ -33,6 +41,6 @@ const ui = (state = [0, 0, 0], write) => {
   }
 };
 
-const reducer = combineReducers({ chart, level, ui });
+const reducer = combineReducers({ chart, config, level, ui });
 
 export default reducer;

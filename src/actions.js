@@ -1,5 +1,5 @@
 import { stop } from "./events";
-import { getLevel } from "./selectors";
+import { getLevelNo } from "./selectors";
 import { levelUp, reveal } from "./writes";
 
 export const correctGuess = ({ id }) => id === "charlie";
@@ -11,7 +11,7 @@ export const peek = ({ id }) => {
 export const spin = () => setTimeout(stop(), 1950);
 
 export const wasLastRound = (_, state) => {
-  const level = getLevel(state);
+  const level = getLevelNo(state);
   return level === 3;
 };
 
