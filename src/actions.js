@@ -1,6 +1,6 @@
 import { stop } from "./events";
 import { getAttempts, getLevelNo, getPat } from "./selectors";
-import { levelUp, reveal } from "./writes";
+import { levelUp, resetGame, reveal } from "./writes";
 
 export const correctGuess = ({ id }, state) =>
   id === getPat(state) || (getLevelNo(state) === 3 && getAttempts(state) === 2);
@@ -18,4 +18,8 @@ export const wasLastRound = (_, state) => {
 
 export const writeLevelUp = () => {
   levelUp();
+};
+
+export const reset = () => {
+  resetGame();
 };

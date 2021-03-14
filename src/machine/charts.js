@@ -1,6 +1,7 @@
 import {
   correctGuess,
   peek,
+  reset,
   spin,
   wasLastRound,
   writeLevelUp
@@ -51,7 +52,10 @@ const chart = {
     },
     gameOver: {
       on: {
-        "SPIN": "notStarted"
+        "SPIN": {
+          target: "notStarted",
+          actions: reset
+        }
       }
     }
   }

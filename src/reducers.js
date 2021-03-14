@@ -20,7 +20,9 @@ const config = (state = appConfig.levels, write) => {
   }
 };
 
-const game = (state = { attempts: 0, level: 0 }, write) => {
+const initGame = { attempts: 0, level: 0 }
+
+const game = (state = initGame, write) => {
   switch (write.type) {
     case Writes.levelUp:
       return {
@@ -29,6 +31,8 @@ const game = (state = { attempts: 0, level: 0 }, write) => {
       };
     case Writes.reveal:
       return { ...state, attempts: state.attempts + 1 };
+    case Writes.resetGame:
+      return initGame;
     default:
       return state;
   }
@@ -47,6 +51,8 @@ const message = (state = appConfig.script, write) => {
         ...state,
         guessing: state.guessing.slice(1)
       };
+    case Writes.resetGame:
+      return appConfig.script;
     default:
       return state;
   }
@@ -55,6 +61,7 @@ const message = (state = appConfig.script, write) => {
 const ui = (state = [0, 0, 0], write) => {
   switch (write.type) {
     case Writes.levelUp:
+    case Writes.resetGame:
       return [0, 0, 0];
     case Writes.reveal: {
       const nextState = [...state];
