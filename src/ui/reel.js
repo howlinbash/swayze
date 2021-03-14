@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Frame } from "../design";
-import Face from "./face";
 import faces, { question } from "../faces";
 import { peek } from "../events";
 import { getIsRevealed } from "../selectors";
@@ -23,15 +22,6 @@ const Img = styled.img`
 
 const Reel = ({ face, focus, id, isSpinning }) => {
   const isRevealed = useSelector(state => getIsRevealed(state, id));
-  const guessMade = false;
-
-  if (guessMade) {
-    return (
-      <Container border="black" center color="pink" key={id} pd="0.8vmin">
-        <Img src={faces[face]} />
-      </Container>
-    )
-  }
 
   return (
     <Container
@@ -43,9 +33,9 @@ const Reel = ({ face, focus, id, isSpinning }) => {
       pd="0.8vmin"
     >
       {isSpinning ? (
-        focus === id ? <Face face={faces[0]} id={id} /> : null
-      ) : isRevealed ? <Face face={faces[face]} id={id} /> : (
-        <Img src={question} />
+        focus === id && <Img src={faces[0]} />
+      ) : (
+        <Img src={isRevealed ? faces[face] : question} id={id} />
       )}
     </Container>
   )
