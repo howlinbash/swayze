@@ -205,7 +205,7 @@ const initMachine = (config, store) => {
     const state = machine.states.byId[id];
     const nextState = getNextState(state, event, storeState);
     const { type, ...eventPayload } = event;
-    state.exit && fireAction(state.exit, eventPayload, storeState)
+    nextState && state.exit && fireAction(state.exit, eventPayload, storeState)
     nextState && execTransition(nextState, event, storeState)
   };
 
