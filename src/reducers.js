@@ -20,10 +20,33 @@ const config = (state = appConfig.levels, write) => {
   }
 };
 
-const level = (state = 0, write) => {
+const game = (state = { attempts: 0, level: 0 }, write) => {
   switch (write.type) {
     case Writes.levelUp:
-      return state + 1;
+      return {
+        attempts: 0,
+        level: state.level + 1
+      };
+    case Writes.reveal:
+      return { ...state, attempts: state.attempts + 1 };
+    default:
+      return state;
+  }
+};
+
+const message = (state = appConfig.script, write) => {
+  switch (write.type) {
+    case Writes.levelUp:
+      return {
+        ...state,
+        guessing: appConfig.script.guessing,
+        spinning: state.spinning.slice(1)
+      };
+    case Writes.reveal:
+      return {
+        ...state,
+        guessing: state.guessing.slice(1)
+      };
     default:
       return state;
   }
@@ -43,6 +66,6 @@ const ui = (state = [0, 0, 0], write) => {
   }
 };
 
-const reducer = combineReducers({ chart, config, level, ui });
+const reducer = combineReducers({ chart, config, game, message, ui });
 
 export default reducer;

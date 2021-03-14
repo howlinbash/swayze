@@ -34,7 +34,7 @@ const chart = {
         },
         found: {
           always: {
-            target: "gameOver",
+            target: "jeff",
             cond: wasLastRound
           },
           exit: writeLevelUp,
@@ -44,9 +44,14 @@ const chart = {
         }
       }
     },
+    jeff: {
+      on: {
+        "SPIN": "gameOver"
+      }
+    },
     gameOver: {
       on: {
-        "SPIN": "playing"
+        "SPIN": "notStarted"
       }
     }
   }

@@ -1,8 +1,9 @@
 import { stop } from "./events";
-import { getLevelNo, getPat } from "./selectors";
+import { getAttempts, getLevelNo, getPat } from "./selectors";
 import { levelUp, reveal } from "./writes";
 
-export const correctGuess = ({ id }, state) => id === getPat(state);
+export const correctGuess = ({ id }, state) =>
+  id === getPat(state) || (getLevelNo(state) === 3 && getAttempts(state) === 2);
 
 export const peek = ({ id }) => {
   reveal(id);
