@@ -1,4 +1,10 @@
-import { correctGuess, spin, wasLastRound, writeLevelUp } from "../actions";
+import {
+  correctGuess,
+  peek,
+  spin,
+  wasLastRound,
+  writeLevelUp
+} from "../actions";
 
 const chart = {
   initial: "notStarted",
@@ -21,6 +27,7 @@ const chart = {
           on: {
             "PEEK": {
               target: "found",
+              actions: peek,
               cond: correctGuess
             }
           }

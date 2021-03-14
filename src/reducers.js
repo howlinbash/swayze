@@ -21,8 +21,18 @@ const level = (state = 1, write) => {
   }
 };
 
-const reducer = combineReducers({ chart, level });
+const ui = (state = [0, 0, 0], write) => {
+  switch (write.type) {
+    case Writes.reveal: {
+      const nextState = [...state];
+      nextState[write.id] = 1;
+      return nextState;
+    };
+    default:
+      return state;
+  }
+};
+
+const reducer = combineReducers({ chart, level, ui });
 
 export default reducer;
-
-export const getLevel = state => state.level;

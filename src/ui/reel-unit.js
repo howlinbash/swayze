@@ -3,24 +3,19 @@ import { Frame } from "../design";
 import Reel from "./reel";
 
 const ReelUnit = ({ answer, requestStartSpin, faces }) => {
-  const focus = "";
+const focus = "";
   const isSpinning = false;
-  const windows = [
-    {id: "alpha"},
-    {id: "beta"},
-    {id: "charlie"}
-  ];
 
   return (
     <Frame border="gold" color="brown" gtc="1fr 1fr 1fr" pd="1.5vmin">
-      {windows.map(({id}) => (
+      {faces.map(face => (
         <Reel
           answer={answer}
-          face={faces[id]}
+          face={face}
           focus={focus}
-          id={id}
+          id={face}
           isSpinning={isSpinning}
-          key={id}
+          key={face}
         />
       ))}
     </Frame>

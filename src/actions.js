@@ -1,8 +1,12 @@
 import { stop } from "./events";
-import { getLevel } from "./reducers";
-import { levelUp } from "./writes";
+import { getLevel } from "./selectors";
+import { levelUp, reveal } from "./writes";
 
 export const correctGuess = ({ id }) => id === "charlie";
+
+export const peek = ({ id }) => {
+  reveal(id);
+};
 
 export const spin = () => setTimeout(stop(), 1950);
 

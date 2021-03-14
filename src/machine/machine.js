@@ -155,7 +155,16 @@ const getNextState = (state, event, getState) => {
     return machine.states.byId[idOrTransition];
   };
 
+  if (idOrTransition.actions) {
+    const { type, ...eventPayload } = event;
+    fireAction(idOrTransition.actions, eventPayload, getState);
+  }
+
   return stateCanTransition(idOrTransition, event, getState);
+};
+
+const fireAction = (actions, eventPayload, getState) => {
+  actions(eventPayload, getState());
 };
 
 const initMachine = (config, store) => {
