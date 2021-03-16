@@ -4,4 +4,3 @@ export const Machine = {
   start: "machine/start",
   transition: "machine/transition",
 };
-

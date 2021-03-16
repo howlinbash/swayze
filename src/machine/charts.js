@@ -4,7 +4,7 @@ import {
   reset,
   spin,
   wasLastRound,
-  writeLevelUp
+  writeLevelUp,
 } from "../actions";
 
 const chart = {
@@ -12,8 +12,8 @@ const chart = {
   states: {
     notStarted: {
       on: {
-        "SPIN": "playing"
-      }
+        SPIN: "playing",
+      },
     },
     playing: {
       initial: "spinning",
@@ -21,44 +21,44 @@ const chart = {
         spinning: {
           entry: spin,
           on: {
-            "STOP": "guessing"
-          }
+            STOP: "guessing",
+          },
         },
         guessing: {
           on: {
-            "PEEK": {
+            PEEK: {
               target: "found",
               actions: peek,
-              cond: correctGuess
-            }
-          }
+              cond: correctGuess,
+            },
+          },
         },
         found: {
           always: {
             target: "jeff",
-            cond: wasLastRound
+            cond: wasLastRound,
           },
           exit: writeLevelUp,
           on: {
-            "SPIN": "spinning"
-          }
-        }
-      }
+            SPIN: "spinning",
+          },
+        },
+      },
     },
     jeff: {
       on: {
-        "SPIN": "gameOver"
-      }
+        SPIN: "gameOver",
+      },
     },
     gameOver: {
       on: {
-        "SPIN": {
+        SPIN: {
           target: "notStarted",
-          actions: reset
-        }
-      }
-    }
-  }
+          actions: reset,
+        },
+      },
+    },
+  },
 };
 
 const getChart = () => chart;

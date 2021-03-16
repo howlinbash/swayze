@@ -14,7 +14,7 @@ const ReelUnit = () => {
   useEffect(() => {
     if (isSpinning) {
       const id = setInterval(() => {
-        setFocus(f => (f + 1) % 3);
+        setFocus((f) => (f + 1) % 3);
       }, 150);
       setTimerId(id);
     } else {

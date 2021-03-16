@@ -2,7 +2,7 @@ import { getAppState } from "../selectors";
 import { transition } from "../writes"; // this is asking lib/makeTypes to already exist
 import chart from "./charts";
 
-export const connectMachine = ({ getState }) => next => event => {
+export const connectMachine = ({ getState }) => (next) => (event) => {
   next(event);
 
   const state = getAppState(getState());

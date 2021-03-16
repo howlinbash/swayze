@@ -20,21 +20,22 @@ const getIdFromPath = (byName, path) => {
 
 const makeAlways = (byName, always) => ({
   ...always,
-  target: getIdFromName(byName, always.target)
+  target: getIdFromName(byName, always.target),
 });
 
 const makeTranistions = (byName, node) => {
   if (!node.transitions) return null;
   const transitions = {};
   Object.entries(node.transitions).forEach(([k, v]) => {
-    transitions[k] = typeof v === "string"
-      ? getIdFromName(byName, v)
-      : { ...v, target: getIdFromName(byName, v.target) };
+    transitions[k] =
+      typeof v === "string"
+        ? getIdFromName(byName, v)
+        : { ...v, target: getIdFromName(byName, v.target) };
   });
   return transitions;
 };
 
-export const makeStateNodes = chart => {
+export const makeStateNodes = (chart) => {
   const byId = {};
   const byName = {};
   let id = 0;
@@ -68,7 +69,7 @@ export const makeStateNodes = chart => {
         byName[node.name] = byName[node.name].push([node.id, node.path]);
       } else {
         byName[node.name] = [[node.id, node.path]];
-      };
+      }
 
       id += 1;
 
@@ -76,8 +77,8 @@ export const makeStateNodes = chart => {
       if (state.states) {
         initNodes(state, node);
       }
-    })
-  }
+    });
+  };
 
   const rootId = String(id);
   const rootNode = {
@@ -91,7 +92,7 @@ export const makeStateNodes = chart => {
     transitions: chart.on || null,
   };
   byId[rootId] = rootNode;
-  byName[rootNode.path] = [[rootId, rootNode.path]]
+  byName[rootNode.path] = [[rootId, rootNode.path]];
   id += 1;
 
   initNodes(chart, rootNode);
@@ -102,10 +103,10 @@ export const makeStateNodes = chart => {
     if (parent.children.length <= 1) return null;
 
     // Siblings are parents children minus self
-    return parent.children.filter(i => i !== node.id);
+    return parent.children.filter((i) => i !== node.id);
   };
 
-  const finishNodes = id => {
+  const finishNodes = (id) => {
     const node = byId[id];
 
     // Initial becomes id
@@ -114,9 +115,9 @@ export const makeStateNodes = chart => {
     node.transitions = makeTranistions(byName, node);
     node["siblings"] = getSiblings(byId, node);
     if (node.children.length) {
-      node.children.forEach(id => finishNodes(id));
+      node.children.forEach((id) => finishNodes(id));
     }
-  }
+  };
 
   finishNodes(rootId);
 
@@ -155,7 +156,7 @@ const getNextState = (state, event, storeState) => {
 
   if (typeof idOrTransition === "string") {
     return machine.states.byId[idOrTransition];
-  };
+  }
 
   if (idOrTransition.actions) {
     const { type, ...eventPayload } = event;
@@ -198,24 +199,24 @@ const initMachine = (config, store) => {
 
   const states = makeStateNodes(chart);
 
-  const receive = event => {
+  const receive = (event) => {
     const storeState = store.getState();
     const currentState = storeState.chart;
     const id = getIdFromPath(machine.states.byName, currentState);
     const state = machine.states.byId[id];
     const nextState = getNextState(state, event, storeState);
     const { type, ...eventPayload } = event;
-    nextState && state.exit && fireAction(state.exit, eventPayload, storeState)
-    nextState && execTransition(nextState, event, storeState)
+    nextState && state.exit && fireAction(state.exit, eventPayload, storeState);
+    nextState && execTransition(nextState, event, storeState);
   };
 
   return {
     receive,
-    states
+    states,
   };
 };
 
-export const connectMachine = store => next => event => {
+export const connectMachine = (store) => (next) => (event) => {
   next(event);
 
   if (event.type === Machine.init) {

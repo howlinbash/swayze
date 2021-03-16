@@ -1,4 +1,4 @@
-import { initStore, startMachine } from './machine';
+import { initStore, startMachine } from "./machine";
 import reducer from "./reducers";
 import { getChart } from "./machine";
 

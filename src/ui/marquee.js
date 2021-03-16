@@ -16,7 +16,8 @@ const Container = styled(Frame)`
 
 const Title = styled.div`
   color: gold;
-  text-shadow: -0.8vmin 0 black, 0 0.8vmin black, 0.8vmin 0 black, 0 -0.8vmin black;
+  text-shadow: -0.8vmin 0 black, 0 0.8vmin black, 0.8vmin 0 black,
+    0 -0.8vmin black;
   font-size: 14.5vmin;
   font-family: impact;
 `;

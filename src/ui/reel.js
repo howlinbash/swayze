@@ -25,11 +25,11 @@ const imgSwitch = (face, focus, isSpinning, isRevealed) => {
   if (isSpinning) {
     return focus ? faces[0] : undefined;
   }
-  return isRevealed ? faces[face] : question
+  return isRevealed ? faces[face] : question;
 };
 
 const Reel = ({ face, focus, id, isSpinning }) => {
-  const isRevealed = useSelector(state => getIsRevealed(state, id));
+  const isRevealed = useSelector((state) => getIsRevealed(state, id));
 
   return (
     <Container
@@ -46,7 +46,7 @@ const Reel = ({ face, focus, id, isSpinning }) => {
         src={imgSwitch(face, focus, isSpinning, isRevealed)}
       />
     </Container>
-  )
+  );
 };
 
 export default Reel;
