@@ -27,7 +27,7 @@ const ReelUnit = () => {
       {level.map((face, index) => (
         <Reel
           face={face}
-          focus={focus}
+          focus={focus === index}
           id={index}
           isSpinning={isSpinning}
           key={keys[index]}

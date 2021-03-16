@@ -18,7 +18,15 @@ const Img = styled.img`
   width: 100%;
   object-fit: contain;
   margin: -4vmin;
+  ${({ hide }) => hide && "opacity: 0"};
 `;
+
+const imgSwitch = (face, focus, isSpinning, isRevealed) => {
+  if (isSpinning) {
+    return focus ? faces[0] : undefined;
+  }
+  return isRevealed ? faces[face] : question
+};
 
 const Reel = ({ face, focus, id, isSpinning }) => {
   const isRevealed = useSelector(state => getIsRevealed(state, id));
@@ -32,11 +40,11 @@ const Reel = ({ face, focus, id, isSpinning }) => {
       onClick={peek(id)}
       pd="0.8vmin"
     >
-      {isSpinning ? (
-        focus === id && <Img src={faces[0]} />
-      ) : (
-        <Img src={isRevealed ? faces[face] : question} id={id} />
-      )}
+      <Img
+        id={id}
+        hide={isSpinning && !focus}
+        src={imgSwitch(face, focus, isSpinning, isRevealed)}
+      />
     </Container>
   )
 };
