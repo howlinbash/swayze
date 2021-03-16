@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { requestInterval, clearRequestInterval } from "../lib";
 import { Frame } from "../design";
 import Reel from "./reel";
 import { getIsSpinning, getLevel } from "../selectors";
@@ -13,12 +14,13 @@ const ReelUnit = () => {
 
   useEffect(() => {
     if (isSpinning) {
-      const id = setInterval(() => {
+      const id = requestInterval(() => {
         setFocus((f) => (f + 1) % 3);
       }, 150);
       setTimerId(id);
     } else {
-      clearInterval(timerId);
+      clearRequestInterval(timerId);
+      setFocus(0);
     }
   }, [isSpinning]);
 

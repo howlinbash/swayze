@@ -18,6 +18,7 @@ const Img = styled.img`
   width: 100%;
   object-fit: contain;
   margin: -4vmin;
+  // will-change: opacity;
   ${({ hide }) => hide && "opacity: 0"};
 `;
 
