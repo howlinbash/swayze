@@ -1,9 +1,0 @@
-.wheel {
-  border: 2px solid gold;
-  background-color: brown;
-  border-radius: 1.5vmin;
-  padding: 1.5vmin;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 1.5vmin;
-}
