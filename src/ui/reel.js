@@ -14,7 +14,7 @@ const Container = styled(Frame)`
 `;
 
 const Img = styled.img`
-  height: 100%;
+  max-height: 100%;
   width: 100%;
   object-fit: contain;
   margin: -4vmin;

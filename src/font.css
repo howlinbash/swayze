@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'Impact';
+  font-style: normal;
+  font-weight: normal;
+  src:
+    local('Impact'),
+    local('Impact'),
+    url('./fonts/impact.ttf')
+    format('truetype');
+}
