@@ -39,7 +39,7 @@ const Reel = ({ face, focus, id, isSpinning }) => {
       center
       color="pink"
       key={id}
-      onClick={peek(id)}
+      onClick={isRevealed ? () => {} : peek(id)}
       pd="0.8vmin"
     >
       <Div>
