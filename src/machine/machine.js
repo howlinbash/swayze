@@ -224,7 +224,7 @@ export const connectMachine = (store) => (next) => (event) => {
     return;
   }
   if (event.type === Machine.start) {
-    const chart = event.getChart();
+    const { chart } = event;
     setChart(chart);
     machine = initMachine(chart, store);
     const nextStateId = machine.states.byId["0"].initial;

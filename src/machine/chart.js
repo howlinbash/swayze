@@ -62,6 +62,4 @@ const chart = {
   },
 };
 
-const getChart = () => chart;
-
-export default getChart;
+export default chart;

@@ -12,7 +12,7 @@ export const initMachine = (reducer) => {
   store.dispatch({ type: Machine.init });
 };
 
-export const getStore = (getChart) => {
-  store.dispatch({ type: Machine.start, getChart });
+export const getStore = (chart) => {
+  store.dispatch({ type: Machine.start, chart });
   return store;
 };
