@@ -1,5 +1,4 @@
 import { setDispatch } from "../lib";
-import { setChart } from "./makeStates";
 import { Machine } from "./constants";
 import { Types as Writes } from "../writes";
 
@@ -224,9 +223,7 @@ export const connectMachine = (store) => (next) => (event) => {
     return;
   }
   if (event.type === Machine.start) {
-    const { chart } = event;
-    setChart(chart);
-    machine = initMachine(chart, store);
+    machine = initMachine(event.chart, store);
     const nextStateId = machine.states.byId["0"].initial;
     const nextState = machine.states.byId[nextStateId];
     store.dispatch({ type: Machine.setState, state: nextState.path });
