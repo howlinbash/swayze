@@ -1,3 +1,4 @@
+import { Types as Events } from "../events";
 import {
   correctGuess,
   peek,
@@ -12,7 +13,7 @@ const chart = {
   states: {
     notStarted: {
       on: {
-        SPIN: "playing",
+        [Events.spin]: "playing",
       },
     },
     playing: {
@@ -21,12 +22,12 @@ const chart = {
         spinning: {
           entry: spin,
           on: {
-            STOP: "guessing",
+            [Events.stop]: "guessing",
           },
         },
         guessing: {
           on: {
-            PEEK: {
+            [Events.peek]: {
               target: "found",
               actions: peek,
               cond: correctGuess,
@@ -40,19 +41,19 @@ const chart = {
           },
           exit: writeLevelUp,
           on: {
-            SPIN: "spinning",
+            [Events.spin]: "spinning",
           },
         },
       },
     },
     jeff: {
       on: {
-        SPIN: "gameOver",
+        [Events.spin]: "gameOver",
       },
     },
     gameOver: {
       on: {
-        SPIN: {
+        [Events.spin]: {
           target: "notStarted",
           actions: reset,
         },
