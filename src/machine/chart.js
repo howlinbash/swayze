@@ -6,7 +6,7 @@ import {
   spin,
   wasLastRound,
   writeLevelUp,
-} from "../actions";
+} from "./actions";
 
 const chart = {
   initial: "notStarted",
