@@ -9,7 +9,7 @@ export const peek = ({ id }) => {
   reveal(id);
 };
 
-export const spin = () => setTimeout(stop(), 1950);
+export const spin = () => setTimeout(stop(), 1800);
 
 export const wasLastRound = (_, state) => {
   const level = getLevelNo(state);
