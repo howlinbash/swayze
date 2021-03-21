@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { connectMachine } from "./machine";
-import { Machine } from "../constants";
+import { Machine } from "./constants";
 
 let store;
 

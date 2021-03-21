@@ -1,6 +1,6 @@
 import { setDispatch } from "../lib";
-import { setChart } from "../makeStates";
-import { Machine } from "../constants";
+import { setChart } from "./makeStates";
+import { Machine } from "./constants";
 import { Types as Writes } from "../writes";
 
 let machine;

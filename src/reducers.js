@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { Machine } from "./constants";
+import { Machine } from "./redux-charts/constants";
 import appConfig from "./config";
 import { Types as Writes } from "./writes";
 
