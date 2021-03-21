@@ -4,7 +4,7 @@ import { Machine } from "../constants";
 
 let store;
 
-export const initStore = (reducer) => {
+export const initMachine = (reducer) => {
   store = configureStore({
     middleware: [connectMachine],
     reducer,
@@ -12,7 +12,7 @@ export const initStore = (reducer) => {
   store.dispatch({ type: Machine.init });
 };
 
-export const startMachine = (getChart) => {
+export const getStore = (getChart) => {
   store.dispatch({ type: Machine.start, getChart });
   return store;
 };
