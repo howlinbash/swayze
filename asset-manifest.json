@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/swayze/static/css/main.9f30f302.chunk.css",
-    "main.js": "/swayze/static/js/main.e11dfdec.chunk.js",
-    "main.js.map": "/swayze/static/js/main.e11dfdec.chunk.js.map",
+    "main.js": "/swayze/static/js/main.04ff5c0b.chunk.js",
+    "main.js.map": "/swayze/static/js/main.04ff5c0b.chunk.js.map",
     "runtime-main.js": "/swayze/static/js/runtime-main.7d43a501.js",
     "runtime-main.js.map": "/swayze/static/js/runtime-main.7d43a501.js.map",
-    "static/js/2.aaa8691a.chunk.js": "/swayze/static/js/2.aaa8691a.chunk.js",
-    "static/js/2.aaa8691a.chunk.js.map": "/swayze/static/js/2.aaa8691a.chunk.js.map",
+    "static/js/2.defbc35f.chunk.js": "/swayze/static/js/2.defbc35f.chunk.js",
+    "static/js/2.defbc35f.chunk.js.map": "/swayze/static/js/2.defbc35f.chunk.js.map",
     "index.html": "/swayze/index.html",
     "static/css/main.9f30f302.chunk.css.map": "/swayze/static/css/main.9f30f302.chunk.css.map",
-    "static/js/2.aaa8691a.chunk.js.LICENSE.txt": "/swayze/static/js/2.aaa8691a.chunk.js.LICENSE.txt",
+    "static/js/2.defbc35f.chunk.js.LICENSE.txt": "/swayze/static/js/2.defbc35f.chunk.js.LICENSE.txt",
     "static/media/bruce.c33432fc.png": "/swayze/static/media/bruce.c33432fc.png",
     "static/media/hilary.75b7683e.png": "/swayze/static/media/hilary.75b7683e.png",
     "static/media/font.css": "/swayze/static/media/impact.0294f828.ttf",
@@ -21,8 +21,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.7d43a501.js",
-    "static/js/2.aaa8691a.chunk.js",
+    "static/js/2.defbc35f.chunk.js",
     "static/css/main.9f30f302.chunk.css",
-    "static/js/main.e11dfdec.chunk.js"
+    "static/js/main.04ff5c0b.chunk.js"
   ]
 }
