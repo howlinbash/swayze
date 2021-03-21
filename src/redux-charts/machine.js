@@ -1,9 +1,6 @@
-import { setDispatch } from "../lib";
-import { setChart } from "../makeStates";
-import { Machine } from "../constants";
-import { Types as Writes } from "../writes";
-
-let machine;
+import { setDispatch } from "./packets";
+import { Machine } from "./constants";
+import { Writes } from "../machine";
 
 const getIdFromName = (byName, name) => {
   const locations = byName[name];
@@ -35,7 +32,7 @@ const makeTranistions = (byName, node) => {
   return transitions;
 };
 
-export const makeStateNodes = (chart) => {
+const makeStateNodes = (chart) => {
   const byId = {};
   const byName = {};
   let id = 0;
@@ -124,7 +121,7 @@ export const makeStateNodes = (chart) => {
   return { byId, byName };
 };
 
-const getIdOrTransition = (state, event) => {
+const getIdOrTransition = (state, event, machine) => {
   // Root doesn't even have transitions
   if (state.id === "0" && !state.transitions) return null;
 
@@ -138,10 +135,10 @@ const getIdOrTransition = (state, event) => {
 
   // Not found yet, try the parent.
   const parent = machine.states.byId[state.parent];
-  return getIdOrTransition(parent, event);
+  return getIdOrTransition(parent, event, machine);
 };
 
-const stateCanTransition = (transition, event, storeState) => {
+const stateCanTransition = (transition, event, storeState, machine) => {
   if (!transition.target) throw new Error("Transition has no target");
   if (transition.cond) {
     const { type, ...data } = event;
@@ -150,8 +147,8 @@ const stateCanTransition = (transition, event, storeState) => {
   return machine.states.byId[transition.target];
 };
 
-const getNextState = (state, event, storeState) => {
-  const idOrTransition = getIdOrTransition(state, event);
+const getNextState = (state, event, storeState, machine) => {
+  const idOrTransition = getIdOrTransition(state, event, machine);
   if (!idOrTransition) return null;
 
   if (typeof idOrTransition === "string") {
@@ -163,58 +160,59 @@ const getNextState = (state, event, storeState) => {
     fireAction(idOrTransition.actions, eventPayload, storeState);
   }
 
-  return stateCanTransition(idOrTransition, event, storeState);
+  return stateCanTransition(idOrTransition, event, storeState, machine);
 };
 
 const fireAction = (actions, eventPayload, storeState) => {
   actions(eventPayload, storeState);
 };
 
-const initMachine = (config, store) => {
-  const chart = config;
-
-  const execTransition = (newState, event, storeState) => {
-    // Handle transient transition
-    if (newState.always) {
-      const nextState = stateCanTransition(newState.always, event, storeState);
-      if (nextState) {
-        execTransition(nextState, event);
-        return;
-      }
-    }
-
-    const { type, ...data } = event;
-    // Handle entry action
-    newState.entry && newState.entry(data, store.getState());
-
-    // Handle initial state
-    if (newState.initial) {
-      execTransition(machine.states.byId[newState.initial], event, storeState);
+const execTransition = (newState, event, storeState, store, machine) => {
+  // Handle transient transition
+  if (newState.always) {
+    const nextState = stateCanTransition(newState.always, event, storeState, machine);
+    if (nextState) {
+      execTransition(nextState, event);
       return;
     }
+  }
 
-    // Update store
-    store.dispatch({ type: Machine.transition, state: newState.path });
+  const { type, ...data } = event;
+  // Handle entry action
+  newState.entry && newState.entry(data, store.getState());
+
+  // Handle initial state
+  if (newState.initial) {
+    execTransition(machine.states.byId[newState.initial], event, storeState, store, machine);
+    return;
+  }
+
+  // Update store
+  store.dispatch({ type: Machine.transition, state: newState.path });
+};
+
+const initMachine = (chart, store) => {
+  const machine = {
+    states: makeStateNodes(chart),
   };
 
-  const states = makeStateNodes(chart);
-
-  const receive = (event) => {
+  const receive = (event, machine) => {
     const storeState = store.getState();
     const currentState = storeState.chart;
     const id = getIdFromPath(machine.states.byName, currentState);
     const state = machine.states.byId[id];
-    const nextState = getNextState(state, event, storeState);
+    const nextState = getNextState(state, event, storeState, machine);
     const { type, ...eventPayload } = event;
     nextState && state.exit && fireAction(state.exit, eventPayload, storeState);
-    nextState && execTransition(nextState, event, storeState);
+    nextState && execTransition(nextState, event, storeState, store, machine);
   };
 
-  return {
-    receive,
-    states,
-  };
+  machine.receive = receive;
+
+  return machine
 };
+
+let machine;
 
 export const connectMachine = (store) => (next) => (event) => {
   next(event);
@@ -223,15 +221,15 @@ export const connectMachine = (store) => (next) => (event) => {
     setDispatch(store.dispatch);
     return;
   }
+
   if (event.type === Machine.start) {
-    const chart = event.getChart();
-    setChart(chart);
-    machine = initMachine(chart, store);
+    machine = initMachine(event.chart, store);
     const nextStateId = machine.states.byId["0"].initial;
     const nextState = machine.states.byId[nextStateId];
     store.dispatch({ type: Machine.setState, state: nextState.path });
     return;
   }
+
   const ignores = [...Object.values(Writes), ...Object.values(Machine)];
-  if (machine && !ignores.includes(event.type)) machine.receive(event);
+  if (machine && !ignores.includes(event.type)) machine.receive(event, machine);
 };

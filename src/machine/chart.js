@@ -1,3 +1,4 @@
+import { Events } from "./events";
 import {
   correctGuess,
   peek,
@@ -5,14 +6,14 @@ import {
   spin,
   wasLastRound,
   writeLevelUp,
-} from "../actions";
+} from "./actions";
 
 const chart = {
   initial: "notStarted",
   states: {
     notStarted: {
       on: {
-        SPIN: "playing",
+        [Events.spin]: "playing",
       },
     },
     playing: {
@@ -21,12 +22,12 @@ const chart = {
         spinning: {
           entry: spin,
           on: {
-            STOP: "guessing",
+            [Events.stop]: "guessing",
           },
         },
         guessing: {
           on: {
-            PEEK: {
+            [Events.peek]: {
               target: "found",
               actions: peek,
               cond: correctGuess,
@@ -40,19 +41,19 @@ const chart = {
           },
           exit: writeLevelUp,
           on: {
-            SPIN: "spinning",
+            [Events.spin]: "spinning",
           },
         },
       },
     },
     jeff: {
       on: {
-        SPIN: "gameOver",
+        [Events.spin]: "gameOver",
       },
     },
     gameOver: {
       on: {
-        SPIN: {
+        [Events.spin]: {
           target: "notStarted",
           actions: reset,
         },
@@ -61,6 +62,4 @@ const chart = {
   },
 };
 
-const getChart = () => chart;
-
-export default getChart;
+export default chart;

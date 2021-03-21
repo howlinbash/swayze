@@ -1,17 +1,6 @@
-import { combineReducers } from "redux";
-import { Machine } from "./constants";
+import { combineReducers } from "./redux-charts";
 import appConfig from "./config";
-import { Types as Writes } from "./writes";
-
-const chart = (state = "", write) => {
-  switch (write.type) {
-    case Machine.setState:
-    case Machine.transition:
-      return write.state;
-    default:
-      return state;
-  }
-};
+import { Writes } from "./machine";
 
 const config = (state = appConfig.levels, write) => {
   switch (write.type) {
@@ -73,6 +62,6 @@ const ui = (state = [0, 0, 0], write) => {
   }
 };
 
-const reducer = combineReducers({ chart, config, game, message, ui });
+const reducer = combineReducers({ config, game, message, ui });
 
 export default reducer;

@@ -1,6 +1,4 @@
-import { makePackets, makeTypes } from "./lib";
-
-export const generateType = (name) => name.toUpperCase();
+import { makePackets, makeTypes } from "../redux-charts";
 
 const writesConfig = {
   levelUp: {},
@@ -9,7 +7,7 @@ const writesConfig = {
   transition: { props: ["state"] },
 };
 
-export const Types = makeTypes(writesConfig);
+export const Writes = makeTypes(writesConfig);
 
 export const { levelUp, resetGame, reveal, transition } = makePackets(
   writesConfig,

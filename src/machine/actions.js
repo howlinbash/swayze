@@ -1,6 +1,5 @@
-import { stop } from "./events";
-import { getAttempts, getLevelNo, getPat } from "./selectors";
-import { levelUp, resetGame, reveal } from "./writes";
+import { levelUp, resetGame, reveal, stop } from "./index";
+import { getAttempts, getLevelNo, getPat } from "../selectors";
 
 export const correctGuess = ({ id }, state) =>
   id === getPat(state) || (getLevelNo(state) === 3 && getAttempts(state) === 2);

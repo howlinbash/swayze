@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { spin } from "../events";
+import { spin } from "../machine";
 import { Frame } from "../design";
 import Marquee from "./marquee";
 import DisplayBoard from "./display-board";
