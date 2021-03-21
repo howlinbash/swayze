@@ -1,4 +1,4 @@
-import { Types as Events } from "../events";
+import { Events } from "./events";
 import {
   correctGuess,
   peek,

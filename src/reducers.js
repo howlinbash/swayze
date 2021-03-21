@@ -1,6 +1,6 @@
 import { combineReducers } from "./redux-charts";
 import appConfig from "./config";
-import { Types as Writes } from "./writes";
+import { Writes } from "./machine";
 
 const config = (state = appConfig.levels, write) => {
   switch (write.type) {

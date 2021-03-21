@@ -1,6 +1,6 @@
 import { setDispatch } from "./packets";
 import { Machine } from "./constants";
-import { Types as Writes } from "../writes";
+import { Writes } from "../machine";
 
 let machine;
 

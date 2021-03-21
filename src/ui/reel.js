@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Frame } from "../design";
 import faces, { question } from "../faces";
-import { peek } from "../events";
+import { peek } from "../machine";
 import { getIsRevealed } from "../selectors";
 
 const Container = styled(Frame)`
