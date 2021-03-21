@@ -25,4 +25,4 @@ export const getMessage = (state) => {
 
 export const getAttempts = (state) => state.game.attempts;
 
-export const getIsNotStarted = (state) => getAppState(state) === "/playing/spinning";
+export const getIsNotStarted = (state) => getAppState(state) === "/notStarted";
