@@ -13,15 +13,24 @@ const Wallpaper = styled.div`
   background-color: #282c34;
 `;
 
+const Container = styled(Frame)`
+  width: 80vmin;
+  height: 65vmin;
+  @media (orientation: portrait) {
+    width: 90vmin;
+    height: 80vmin;
+  }
+`;
+
 const Layout = () => (
   <Wallpaper>
-    <Frame color="green" gtr="1fr 2fr" h="65vmin" pd="1.5vmin" w="80vmin">
+    <Container color="green" gtr="1fr 2fr" pd="1.5vmin">
       <Marquee onClick={spin()} />
       <Frame border="darkgrey" color="purple" gtr="auto 1fr" pd="1.5vmin">
         <DisplayBoard />
         <ReelUnit />
       </Frame>
-    </Frame>
+    </Container>
   </Wallpaper>
 );
 
