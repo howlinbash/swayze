@@ -2,7 +2,7 @@ export const getAppState = (state) => state.chart;
 
 export const getIsRevealed = (state, id) => state.ui[id];
 
-export const getIsSpinning = (state) => state.chart === "/playing/spinning";
+export const getIsSpinning = (state) => getAppState(state) === "/playing/spinning";
 
 export const getLevelNo = (state) => state.game.level;
 
@@ -24,3 +24,5 @@ export const getMessage = (state) => {
 };
 
 export const getAttempts = (state) => state.game.attempts;
+
+export const getIsNotStarted = (state) => getAppState(state) === "/playing/spinning";
