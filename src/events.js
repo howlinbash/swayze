@@ -1,4 +1,4 @@
-import { makePackets, makeTypes } from "./lib";
+import { makePackets, makeTypes } from "./redux-charts";
 
 export const generateType = (name) => name.toUpperCase();
 

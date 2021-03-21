@@ -1,4 +1,4 @@
-import { setDispatch } from "../lib";
+import { setDispatch } from "./packets";
 import { Machine } from "./constants";
 import { Types as Writes } from "../writes";
 
