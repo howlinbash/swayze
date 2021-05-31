@@ -172,7 +172,7 @@ const execTransition = (newState, event, storeState, store, machine) => {
   if (newState.always) {
     const nextState = stateCanTransition(newState.always, event, storeState, machine);
     if (nextState) {
-      execTransition(nextState, event);
+      execTransition(nextState, event, storeState, store, machine);
       return;
     }
   }
