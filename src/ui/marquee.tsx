@@ -1,4 +1,4 @@
-import React from "react";
+import React, {MouseEventHandler} from "react";
 import { useSelector } from "react-redux";
 import styled, { css, keyframes } from "styled-components";
 import { Frame } from "../design";
@@ -16,7 +16,11 @@ const hint = keyframes`
   }
 `;
 
-const Container = styled(Frame)`
+interface ContainerProps {
+  isNotStarted: boolean;
+}
+
+const Container = styled(Frame)<ContainerProps>`
   background-color: brown;
   :hover {
     border: 2px solid black;
@@ -38,7 +42,10 @@ const Title = styled.div`
   font-family: impact;
 `;
 
-const Marquee = ({ onClick }) => {
+interface Props {
+  onClick: MouseEventHandler<HTMLDivElement>
+}
+const Marquee = ({ onClick }: Props) => {
   const isNotStarted = useSelector(getIsNotStarted);
   return (
     <Container

@@ -1,28 +1,45 @@
 import { setDispatch } from "./packets";
 import { Machine } from "./constants";
 import { Writes } from "../machine";
+import {
+  Action,
+  ById,
+  ByName,
+  Chart,
+  Packet,
+  Payload,
+  State,
+  StateMachine,
+  StateNode,
+  Transition,
+  Transitions,
+} from "./types";
+import { Dispatch, MiddlewareAPI } from "redux";
+import { ReduxState } from "../reducers";
 
-const getIdFromName = (byName, name) => {
+const getIdFromName = (byName: ByName, name: string) => {
   const locations = byName[name];
-  if (!locations.length) return null;
+  if (!locations.length) {
+    throw new Error("state incorrectly indexed");
+  }
   // Need to add case for no length and locator for > 1
   return locations[0][0];
 };
 
-const getIdFromPath = (byName, path) => {
+const getIdFromPath = (byName: ByName, path: string) => {
   const start = path.lastIndexOf("/") + 1;
   const name = path.slice(start);
   return getIdFromName(byName, name);
 };
 
-const makeAlways = (byName, always) => ({
+const makeAlways = (byName: ByName, always: Transition) => ({
   ...always,
   target: getIdFromName(byName, always.target),
 });
 
-const makeTranistions = (byName, node) => {
+const makeTranistions = (byName: ByName, node: StateNode) => {
   if (!node.transitions) return null;
-  const transitions = {};
+  const transitions: Transitions = {};
   Object.entries(node.transitions).forEach(([k, v]) => {
     transitions[k] =
       typeof v === "string"
@@ -32,12 +49,13 @@ const makeTranistions = (byName, node) => {
   return transitions;
 };
 
-const makeStateNodes = (chart) => {
-  const byId = {};
-  const byName = {};
+const makeStateNodes = (chart: Chart) => {
+  const byId: ById = {};
+  const byName: ByName = {};
   let id = 0;
 
-  const initNodes = (chart, parent) => {
+  const initNodes = (chart: Chart | State, parent: StateNode) => {
+    if (!chart.states) return;
     Object.entries(chart.states).forEach(([stateName, state]) => {
       const nodeId = String(id);
 
@@ -45,7 +63,7 @@ const makeStateNodes = (chart) => {
       parent.children.push(nodeId);
 
       // Create stateNode
-      const node = {
+      const node: StateNode = {
         always: state.always || null,
         children: [],
         entry: state.entry || null,
@@ -56,16 +74,19 @@ const makeStateNodes = (chart) => {
         parent: parent.id,
         path: `${parent.path}${parent.parent ? "/" : ""}${stateName}`,
         transitions: state.on || null,
+        siblings: null,
       };
 
       // Assign node to id table
       byId[node.id] = node;
 
       // Assign node address tuple to name table
-      if (byName[node.name]) {
-        byName[node.name] = byName[node.name].push([node.id, node.path]);
-      } else {
-        byName[node.name] = [[node.id, node.path]];
+      if (node.name) {
+        if (byName[node.name]) {
+          byName[node.name].push([node.id, node.path]);
+        } else {
+          byName[node.name] = [[node.id, node.path]];
+        }
       }
 
       id += 1;
@@ -78,7 +99,7 @@ const makeStateNodes = (chart) => {
   };
 
   const rootId = String(id);
-  const rootNode = {
+  const rootNode: StateNode = {
     children: [],
     id: rootId,
     initial: chart.initial,
@@ -94,23 +115,25 @@ const makeStateNodes = (chart) => {
 
   initNodes(chart, rootNode);
 
-  const getSiblings = (byId, node) => {
+  const getSiblings = (byId: ById, node: StateNode) => {
     if (!node.parent) return null;
-    const parent = byId[node.parent];
-    if (parent.children.length <= 1) return null;
+    const nodeParent = byId[node.parent];
+    if (nodeParent.children.length <= 1) return null;
 
     // Siblings are parents children minus self
-    return parent.children.filter((i) => i !== node.id);
+    return nodeParent.children.filter((i) => i !== node.id);
   };
 
-  const finishNodes = (id) => {
+  const finishNodes = (id: string) => {
     const node = byId[id];
 
     // Initial becomes id
     node.always = node.always && makeAlways(byName, node.always);
     node.initial = node.initial && getIdFromName(byName, node.initial);
     node.transitions = makeTranistions(byName, node);
-    node["siblings"] = getSiblings(byId, node);
+    if (node.parent) {
+      node.siblings = getSiblings(byId, node);
+    }
     if (node.children.length) {
       node.children.forEach((id) => finishNodes(id));
     }
@@ -121,7 +144,11 @@ const makeStateNodes = (chart) => {
   return { byId, byName };
 };
 
-const getIdOrTransition = (state, event, machine) => {
+const getIdOrTransition = (
+  state: StateNode,
+  event: Packet,
+  machine: StateMachine
+): Transition | string | null => {
   // Root doesn't even have transitions
   if (state.id === "0" && !state.transitions) return null;
 
@@ -134,11 +161,21 @@ const getIdOrTransition = (state, event, machine) => {
   if (state.id === "0") return null;
 
   // Not found yet, try the parent.
+  if (!state.parent) {
+    throw new Error(
+      "Can't find relevant transition on node and parent doesn't exist"
+    );
+  }
   const parent = machine.states.byId[state.parent];
   return getIdOrTransition(parent, event, machine);
 };
 
-const stateCanTransition = (transition, event, storeState, machine) => {
+const stateCanTransition = (
+  transition: Transition,
+  event: Packet,
+  storeState: ReduxState,
+  machine: StateMachine
+) => {
   if (!transition.target) throw new Error("Transition has no target");
   if (transition.cond) {
     const { type, ...data } = event;
@@ -147,7 +184,12 @@ const stateCanTransition = (transition, event, storeState, machine) => {
   return machine.states.byId[transition.target];
 };
 
-const getNextState = (state, event, storeState, machine) => {
+const getNextState = (
+  state: StateNode,
+  event: Packet,
+  storeState: ReduxState,
+  machine: StateMachine
+) => {
   const idOrTransition = getIdOrTransition(state, event, machine);
   if (!idOrTransition) return null;
 
@@ -163,14 +205,29 @@ const getNextState = (state, event, storeState, machine) => {
   return stateCanTransition(idOrTransition, event, storeState, machine);
 };
 
-const fireAction = (actions, eventPayload, storeState) => {
+const fireAction = (
+  actions: Action,
+  eventPayload: Payload,
+  storeState: ReduxState
+) => {
   actions(eventPayload, storeState);
 };
 
-const execTransition = (newState, event, storeState, store, machine) => {
+const execTransition = (
+  newState: StateNode,
+  event: Packet,
+  storeState: ReduxState,
+  store: MiddlewareAPI,
+  machine: StateMachine
+) => {
   // Handle transient transition
   if (newState.always) {
-    const nextState = stateCanTransition(newState.always, event, storeState, machine);
+    const nextState = stateCanTransition(
+      newState.always,
+      event,
+      storeState,
+      machine
+    );
     if (nextState) {
       execTransition(nextState, event, storeState, store, machine);
       return;
@@ -183,7 +240,13 @@ const execTransition = (newState, event, storeState, store, machine) => {
 
   // Handle initial state
   if (newState.initial) {
-    execTransition(machine.states.byId[newState.initial], event, storeState, store, machine);
+    execTransition(
+      machine.states.byId[newState.initial],
+      event,
+      storeState,
+      store,
+      machine
+    );
     return;
   }
 
@@ -191,12 +254,12 @@ const execTransition = (newState, event, storeState, store, machine) => {
   store.dispatch({ type: Machine.transition, state: newState.path });
 };
 
-const initMachine = (chart, store) => {
-  const machine = {
+const initMachine = (chart: Chart, store: MiddlewareAPI) => {
+  const machine: StateMachine = {
     states: makeStateNodes(chart),
   };
 
-  const receive = (event, machine) => {
+  const receive = (event: Packet, machine: StateMachine) => {
     const storeState = store.getState();
     const currentState = storeState.chart;
     const id = getIdFromPath(machine.states.byName, currentState);
@@ -209,27 +272,32 @@ const initMachine = (chart, store) => {
 
   machine.receive = receive;
 
-  return machine
+  return machine;
 };
 
-let machine;
+let machine: StateMachine;
 
-export const connectMachine = (store) => (next) => (event) => {
-  next(event);
+export const connectMachine =
+  (store: MiddlewareAPI) => (next: Dispatch) => (event: Packet) => {
+    next(event);
 
-  if (event.type === Machine.init) {
-    setDispatch(store.dispatch);
-    return;
-  }
+    if (event.type === Machine.init) {
+      setDispatch(store.dispatch);
+      return;
+    }
 
-  if (event.type === Machine.start) {
-    machine = initMachine(event.chart, store);
-    const nextStateId = machine.states.byId["0"].initial;
-    const nextState = machine.states.byId[nextStateId];
-    store.dispatch({ type: Machine.setState, state: nextState.path });
-    return;
-  }
+    if (event.type === Machine.start) {
+      machine = initMachine(event.chart as Chart, store);
+      const nextStateId = machine.states.byId["0"].initial as string;
+      const nextState = machine.states.byId[nextStateId];
+      store.dispatch({
+        type: Machine.setState,
+        state: nextState.path,
+      });
+      return;
+    }
 
-  const ignores = [...Object.values(Writes), ...Object.values(Machine)];
-  if (machine && !ignores.includes(event.type)) machine.receive(event, machine);
-};
+    const ignores = [...Object.values(Writes), ...Object.values(Machine)];
+    if (machine && machine.receive && !ignores.includes(event.type))
+      machine.receive(event, machine);
+  };

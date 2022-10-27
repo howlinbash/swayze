@@ -7,8 +7,9 @@ import {
   wasLastRound,
   writeLevelUp,
 } from "./actions";
+import { Chart } from "../redux-charts";
 
-const chart = {
+const chart: Chart = {
   initial: "notStarted",
   states: {
     notStarted: {

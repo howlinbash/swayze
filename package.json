@@ -4,12 +4,17 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
+    "@types/jest": "^29.2.0",
+    "@types/node": "^18.11.5",
+    "@types/react": "^18.0.22",
+    "@types/react-dom": "^18.0.7",
     "gh-pages": "^2.0.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-redux": "^7.2.2",
-    "react-scripts": "4.0.3",
-    "styled-components": "^5.2.1"
+    "react-scripts": "5.0.1",
+    "styled-components": "^5.2.1",
+    "typescript": "^4.8.4"
   },
   "scripts": {
     "predeploy": "yarn build",
@@ -28,5 +33,9 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "homepage": "https://howlinbash.github.io/swayze"
+  "homepage": "https://howlinbash.github.io/swayze",
+  "devDependencies": {
+    "@types/react-redux": "^7.1.24",
+    "@types/styled-components": "^5.1.26"
+  }
 }

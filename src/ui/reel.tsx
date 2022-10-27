@@ -1,9 +1,10 @@
-import React from "react";
+import React, {MouseEventHandler} from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Frame } from "../design";
 import faces, { question } from "../faces";
 import { peek } from "../machine";
+import {ReduxState} from "../reducers";
 import { getIsRevealed } from "../selectors";
 
 const Container = styled(Frame)`
@@ -23,15 +24,22 @@ const Div = styled.div`
   place-items: center;
 `;
 
-const Img = styled.img`
+const Img = styled.img<{ hide: boolean }>`
   max-height: 100%;
   width: 100%;
   object-fit: contain;
   ${({ hide }) => hide && "opacity: 0"};
 `;
 
-const Reel = ({ face, focus, id, isSpinning }) => {
-  const isRevealed = useSelector((state) => getIsRevealed(state, id));
+interface Props {
+  face: number;
+  focus: boolean;
+  id: number;
+  isSpinning: boolean;
+}
+
+const Reel = ({ face, focus, id, isSpinning }: Props) => {
+  const isRevealed = useSelector((state: ReduxState) => getIsRevealed(state, id));
 
   return (
     <Container
@@ -39,26 +47,26 @@ const Reel = ({ face, focus, id, isSpinning }) => {
       center
       color="pink"
       key={id}
-      onClick={isRevealed ? () => {} : peek(id)}
+      onClick={isRevealed ? () => {} : peek(id) as MouseEventHandler<HTMLDivElement>}
       pd="0.8vmin"
     >
       <Div>
         <Img
-          id={id}
-          hide={isSpinning || isRevealed}
+          id={String(id)}
+          hide={!!(isSpinning || isRevealed)}
           src={question}
         />
       </Div>
       <Div>
         <Img
-          id={id}
+          id={String(id)}
           hide={!isSpinning || !focus}
           src={faces[0]}
         />
       </Div>
       <Div>
         <Img
-          id={id}
+          id={String(id)}
           hide={!isRevealed}
           src={faces[face]}
         />

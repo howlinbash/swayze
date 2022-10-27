@@ -1,6 +1,17 @@
 import styled from "styled-components";
 
-const Frame = styled.div`
+interface Props {
+  border?: string;
+  center?: boolean;
+  pd?: string;
+  h?: string;
+  w?: string;
+  gtr?: string;
+  gtc?: string;
+  // onClick?: () => void;
+}
+
+const Frame = styled.div<Props>`
   display: grid;
   grid-gap: 1.5vmin;
   border-radius: 1.5vmin;
