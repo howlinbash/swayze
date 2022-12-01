@@ -1,4 +1,4 @@
-import React from "react";
+import React, {MouseEventHandler} from "react";
 import styled from "styled-components";
 import { spin } from "../machine";
 import { Frame } from "../design";
@@ -25,7 +25,7 @@ const Container = styled(Frame)`
 const Layout = () => (
   <Wallpaper>
     <Container color="green" gtr="1fr 2fr" pd="1.5vmin">
-      <Marquee onClick={spin()} />
+      <Marquee onClick={spin() as MouseEventHandler<HTMLDivElement>} />
       <Frame border="darkgrey" color="purple" gtr="auto 1fr" pd="1.5vmin">
         <DisplayBoard />
         <ReelUnit />

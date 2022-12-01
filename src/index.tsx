@@ -5,8 +5,9 @@ import { initMachine, getStore } from "./redux-charts";
 import { chart } from "./machine";
 import reducer from "./reducers";
 import App from "./App";
+import { RootReducer } from "./reducers";
 
-initMachine(reducer);
+initMachine<RootReducer>(reducer);
 
 ReactDOM.render(
   <React.StrictMode>
